@@ -1,28 +1,50 @@
 <html>
 <head>
-  <link rel="stylesheet" href="./css/style.css">
   <script src="./js/lib/ZohoEmbededAppSDK.min.js"></script>
   <script src="./js/custom.js"></script>
   <script src="./js/lib/jquery-min.js"></script>
+  <script src="./js/dialpad.js"></script>
+  <script src="./js/collapsible.js"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Dial Pad</title>
+  <link rel="stylesheet" href="./css/dialpad.css">
+  <link rel="stylesheet" href="./css/collapsible.css">
 </head>
 <body>
-<div class="topband">
-  Hello World - Api Responses
-</div>
-<div class="blockQuote">
-  <p class="title">User Info</p>
-  <textarea id="userInfo" contentEditable>
-			</textarea>
-</div>
-<div class="blockQuote">
-  <p class="title">Records Info</p>
-  <textarea id="recordInfo" contentEditable>
-			</textarea>
-</div>
-<script type="text/javascript">
-  $(document).ready(function(){
-    initializeWidget();
-  })
-</script>
+  <div id="dial-pad" class="collapsible">
+    <button class="collapsible-btn" onclick="">Toggle</button>
+    <div class="wrapper">
+      <div class="display">
+        <input type="text" id="output" disabled>
+      </div>
+      <div class="buttons">
+        <button class="number-btn" onclick="appendToInput('1')">1</button>
+        <button class="number-btn" onclick="appendToInput('2')">2</button>
+        <button class="number-btn" onclick="appendToInput('3')">3</button>
+        <button class="number-btn" onclick="appendToInput('4')">4</button>
+        <button class="number-btn" onclick="appendToInput('5')">5</button>
+        <button class="number-btn" onclick="appendToInput('6')">6</button>
+        <button class="number-btn" onclick="appendToInput('7')">7</button>
+        <button class="number-btn" onclick="appendToInput('8')">8</button>
+        <button class="number-btn" onclick="appendToInput('9')">9</button>
+        <button class="number-btn" onclick="appendToInput('*')">*</button>
+        <button class="number-btn" onclick="appendToInput('0')">0</button>
+        <button class="number-btn" onclick="appendToInput('#')">#</button>
+        <button class="number-btn" onclick="appendToInput('+')">+</button>
+
+        <button class="clear-btn" onclick="clearInput()">Clear</button>
+        <button class="call-btn">Call</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      initializeWidget();
+    })
+  </script>
 </body>
 </html>

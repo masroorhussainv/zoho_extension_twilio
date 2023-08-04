@@ -1,0 +1,20 @@
+.collapsible {
+  margin: 10px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.collapsible-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.collapsible-content {
+  display: none;
+  padding: 10px;
+  border: 1px solid #ddd;
+}

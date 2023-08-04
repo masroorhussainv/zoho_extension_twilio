@@ -6,7 +6,7 @@
   "modules": {
     "widgets": [
       {
-        "location": "Contacts.detail.sidebar",
+        "location": "top_band",
         "name": "Hello World",
         "url": "/app/widget.html",
         "logo": "/app/img/twilio.png"

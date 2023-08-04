@@ -1,0 +1,103 @@
+@import 'variables.css';
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.dial-pad {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 400px;
+  width: 90%;
+}
+
+.dial-pad {
+  transition: all 0.3s ease;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 400px;
+  width: 90%;
+}
+
+.collapsed {
+  height: 60px;
+}
+
+.collapsed .toggle-btn {
+  transform: rotate(180deg);
+  bottom: 0;
+}
+
+.display {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.number-btn, .call-btn {
+  padding: 15px;
+  font-size: 18px;
+  background-color: var(--primary);
+  color: var(--text);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clear-btn {
+  padding: 15px;
+  font-size: 18px;
+  background-color: var(--accent-one);
+  color: var(--text);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clear-btn, .call-btn {
+  grid-column: span 2;
+}
+
+.number-btn:hover, .call-btn:hover {
+  background-color: var(--dark-primary);
+}
+
+.clear-btn:hover {
+  background-color: var(--accent-two);
+}
+
+@media (max-width: 480px) {
+  .buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .clear-btn, .call-btn {
+    grid-column: span 1;
+  }
+}
