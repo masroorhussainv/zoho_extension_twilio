@@ -1,3 +1,18 @@
 {
-  "service": "CRM"
+  "locale": [
+    "en"
+  ],
+  "service": "CRM",
+  "modules": {
+    "widgets": [
+      {
+        "location": "Contacts.detail.sidebar",
+        "name": "Hello World",
+        "url": "/app/widget.html",
+        "logo": "/app/img/twilio.png"
+      }
+    ]
+  },
+  "config": [],
+  "usedConnections": []
 }
