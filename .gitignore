@@ -1,3 +1,5 @@
 key.pem
 cert.pem
-
+.env
+dist/
+node_modules/
