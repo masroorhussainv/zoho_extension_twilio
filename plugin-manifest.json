@@ -7,7 +7,7 @@
     "widgets": [
       {
         "location": "top_band",
-        "name": "Hello World",
+        "name": "Twilio Demo Widget",
         "url": "/app/widget.html",
         "logo": "/app/img/twilio.png"
       }

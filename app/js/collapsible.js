@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   collapsibleButtons.forEach(function(button) {
     button.addEventListener('click', function() {
-      const content = this.nextElementSibling;
+      const elements  = document.querySelectorAll('.wrapper');
+      const content = elements.length > 0 ? elements[0] : null;
 
       if (content.style.display === 'none') {
         content.style.display = 'block';

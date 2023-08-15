@@ -10,6 +10,11 @@ body {
   margin: 0;
 }
 
+.dialpad-topbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .dial-pad {
   background-color: #fff;
   border-radius: 10px;
@@ -57,12 +62,12 @@ input {
 .buttons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 3px;
 }
 
 .number-btn, .call-btn {
-  padding: 15px;
-  font-size: 18px;
+  padding: 10px;
+  font-size: 15px;
   background-color: var(--primary);
   color: var(--text);
   border: none;

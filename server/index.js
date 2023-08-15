@@ -24,7 +24,6 @@ expressApp.use(bodyParser.json());
 expressApp.use(bodyParser.urlencoded({ extended: false }));
 expressApp.use(errorHandler());
 
-
 expressApp.use('/', function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   next();
@@ -36,6 +35,7 @@ expressApp.get('/plugin-manifest.json', function (req, res) {
 
 expressApp.use('/app', express.static('app'));
 expressApp.use('/app', serveIndex('app'));
+expressApp.use(express.static('public')); // Todo: check if needed or not
 
 
 expressApp.get('/', function (req, res) {
