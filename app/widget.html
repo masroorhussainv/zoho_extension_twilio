@@ -9,50 +9,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Responsive Dial Pad</title>
-  <link rel="stylesheet" href="./css/dialpad.css">
-  <link rel="stylesheet" href="./css/collapsible.css">
+  <!-- <link rel="stylesheet" href="./css/dialpad.css"> -->
+  <!-- <link rel="stylesheet" href="./css/collapsible.css"> -->
 
   <title>Twilio Voice JavaScript SDK Quickstart</title>
-  <link rel="stylesheet" href="./css/site.css" />
+  <link rel="stylesheet" href="./css/widget.css" />
 </head>
 <body>
-  <div id="dial-pad" class="collapsible">
-    <div class="dialpad-topbar">
-      <button class="collapsible-btn" onclick="">Toggle</button>
-    </div>
-    <div class="wrapper">
-      <div class="display">
-        <input type="text" id="output" disabled>
-      </div>
-      <div class="buttons">
-        <button class="number-btn" onclick="appendToInput('1')">1</button>
-        <button class="number-btn" onclick="appendToInput('2')">2</button>
-        <button class="number-btn" onclick="appendToInput('3')">3</button>
-        <button class="number-btn" onclick="appendToInput('4')">4</button>
-        <button class="number-btn" onclick="appendToInput('5')">5</button>
-        <button class="number-btn" onclick="appendToInput('6')">6</button>
-        <button class="number-btn" onclick="appendToInput('7')">7</button>
-        <button class="number-btn" onclick="appendToInput('8')">8</button>
-        <button class="number-btn" onclick="appendToInput('9')">9</button>
-        <button class="number-btn" onclick="appendToInput('*')">*</button>
-        <button class="number-btn" onclick="appendToInput('0')">0</button>
-        <button class="number-btn" onclick="appendToInput('#')">#</button>
-        <button class="number-btn" onclick="appendToInput('+')">+</button>
+  <!-- dialpad html code here-->
 
-        <button class="clear-btn" onclick="clearInput()">Clear</button>
-        <button class="call-btn">Call</button>
-      </div>
-
-    </div>
-  </div>
-
-<!--  twilio quickstart -->
-  <header>
+  <!--  twilio quickstart -->
+  <div class="upper">
     <h1>Twilio Voice JavaScript SDK Quickstart</h1>
+    <div id="twilio-target-phone-number" class="hide"></div>
     <button id="startup-button">Start up the Device</button>
-  </header>
+  </div>
   <main id="controls">
-    <section class="left-column" id="info">
+    <section class="flex-item" id="info-section">
       <h2>Your Device Info</h2>
       <div id="client-name"></div>
       <div id="output-selection" class="hide">
@@ -64,8 +37,8 @@
         <button id="get-devices">Seeing "Unknown" devices?</button>
       </div>
     </section>
-    <section class="center-column">
-      <h2 class="instructions">Make a Call</h2>
+    <section class="flex-item" id="instructions-section">
+      <h2>Make a Call</h2>
       <div id="call-controls" class="hide">
         <form>
           <label for="phone-number"
@@ -93,16 +66,16 @@
         </div>
       </div>
     </section>
-    <section class="right-column">
+    <section class="flex-item" id="logs-section">
       <h2>Event Log</h2>
       <div class="hide" id="log"></div>
     </section>
   </main>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="./js/twilio_functions.js"></script>
   <script type="text/javascript" src="/js/twilio.min.js"></script>
   <script src="./js/main.js"></script>
-  <script src="./js/twilio_functions.js"></script>
 
   <!--  twilio quickstart end -->
 

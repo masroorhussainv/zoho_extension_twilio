@@ -1,7 +1,13 @@
-// import './twilio_functions';
-
 function initializeWidget()
 {
+
+  function initializeTwilioConfig(config_data={}) {
+    console.log('going to set up twilio now');
+    console.log(config_data);
+    TwilioNamespace.setUpTwilio(config_data)
+    console.log('twilio set up initiated');
+  }
+
   /*
    * Subscribe to the EmbeddedApp onPageLoad event before initializing the widget
    */
@@ -22,7 +28,10 @@ function initializeWidget()
         .then(function(response)
         {
           console.log('getRecord callback response', response);
-          document.getElementById("recordInfo").innerHTML = JSON.stringify(response,null,2);
+          // document.getElementById("recordInfo").innerHTML = JSON.stringify(response,null,2);
+          window.__twilioTargetPhoneNumber = response.data?.[0]?.['Phone']?.replace(/[ ()-]/g,'') || '';
+          document.getElementById('twilio-target-phone-number').innerHTML = window.__twilioTargetPhoneNumber
+          console.log('twilioTargetPhoneNumber', window.__twilioTargetPhoneNumber)
         });
     }
 
@@ -34,7 +43,10 @@ function initializeWidget()
       .then(function(response)
       {
         console.log('getcurrentuser', response);
-        document.getElementById("userInfo").innerHTML = JSON.stringify(response,null,2);
+        // document.getElementById("userInfo").innerHTML = JSON.stringify(response,null,2);
+        window.__currentUserEmail = response.users?.[0]?.email || '';
+        console.log('__currentUserEmail',window.__currentUserEmail);
+        initializeTwilioConfig({currentUserEmail: window.__currentUserEmail});
       });
 
   })
