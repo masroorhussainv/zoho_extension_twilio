@@ -24,7 +24,6 @@ const TwilioNamespace = {
     const phoneNumberInput = document.getElementById("phone-number");
     const incomingPhoneNumberEl = document.getElementById("incoming-number");
     const startupButton = document.getElementById("startup-button");
-    const startupDiv = document.getElementById('startup-div');
 
     let device;
     let token;
@@ -43,8 +42,8 @@ const TwilioNamespace = {
     // SETUP STEP 1:
     // Browser client should be started after a user gesture
     // to avoid errors in the browser console re: AudioContext
-    startupButton.addEventListener("click", startupClient);
-    startupButton.addEventListener('click',startupClient);
+    // startupButton.addEventListener("click", startupClient);
+    startupClient();
 
     // SETUP STEP 2: Request an Access Token
     async function startupClient() {
@@ -55,7 +54,6 @@ const TwilioNamespace = {
         log("Got a token.");
         token = data.token;
         setClientNameUI(data.identity);
-        log('initializing device')
         intitializeDevice();
       } catch (err) {
         log(err);
@@ -69,7 +67,7 @@ const TwilioNamespace = {
       logDiv.classList.remove("hide");
       log("Initializing device");
 
-      console.log(token)
+      log(token)
       device = new Twilio.Device(token, {
         logLevel: 1,
         // Set Opus as our preferred codec. Opus generally performs better, requiring less bandwidth and
@@ -219,8 +217,9 @@ const TwilioNamespace = {
 
     // Activity log
     function log(message) {
-      logDiv.innerHTML += `<p class="log-entry">&gt;&nbsp; ${message} </p>`;
-      logDiv.scrollTop = logDiv.scrollHeight;
+      console.log(message)
+      // logDiv.innerHTML += `<p class="log-entry">&gt;&nbsp; ${message} </p>`;
+      // logDiv.scrollTop = logDiv.scrollHeight;
     }
 
     function setClientNameUI(clientName) {
