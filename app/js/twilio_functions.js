@@ -37,7 +37,7 @@ const TwilioNamespace = {
     getAudioDevicesButton.onclick = getAudioDevices;
     speakerDevices.addEventListener("change", updateOutputDevice);
     ringtoneDevices.addEventListener("change", updateRingtoneDevice);
-
+    startupButton.addEventListener('onclick', startupClient)
 
     // SETUP STEP 1:
     // Browser client should be started after a user gesture
@@ -64,7 +64,7 @@ const TwilioNamespace = {
     // SETUP STEP 3:
     // Instantiate a new Twilio.Device
     function intitializeDevice() {
-      logDiv.classList.remove("hide");
+      // logDiv.classList.remove("hide");
       log("Initializing device");
 
       log(token)
