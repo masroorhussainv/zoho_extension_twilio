@@ -1,12 +1,15 @@
-function appendToInput(value) {
-  document.getElementById('output').value += value;
+function appendNumber(number) {
+  var phoneNumberInput = document.getElementById("phone-number");
+  phoneNumberInput.value += number;
 }
 
-function clearInput() {
-  document.getElementById('output').value = '';
+function clearNumber() {
+  var phoneNumberInput = document.getElementById("phone-number");
+  phoneNumberInput.value = "";
 }
 
-function toggleDialPad() {
-  var dialPad = document.getElementById('dial-pad');
-  dialPad.classList.toggle('collapsed');
+function deleteLastDigit() {
+  console.log('deleting last digit');
+  var phoneNumberInput = document.getElementById("phone-number");
+  phoneNumberInput.value = phoneNumberInput.value.slice(0, -1);
 }

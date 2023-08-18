@@ -32,7 +32,11 @@ const TwilioNamespace = {
 
     callButton.onclick = (e) => {
       e.preventDefault();
-      makeOutgoingCall();
+      const phoneNumber = phoneNumberInput.value
+      if(!['', null, undefined].includes(phoneNumber)) {
+        console.log('making call to: ', phoneNumber);
+        // makeOutgoingCall();
+      }
     };
     getAudioDevicesButton.onclick = getAudioDevices;
     speakerDevices.addEventListener("change", updateOutputDevice);

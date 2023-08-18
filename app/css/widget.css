@@ -11,32 +11,71 @@ p {
   align-items: center;
 }
 
-/* h1 {
-  text-align: center;
-}
-
-h2 {
-  margin-top: 0;
-  border-bottom: 1px solid black;
-}
-
-button {
-  margin-bottom: 10px;
-}
-
-label {
-  text-align: left;
-  font-size: 1.25em;
-  color: #777776;
-  display: block;
-}
-
-header {
-  text-align: center;
-} */
-
 * {
   box-sizing: border-box;
+}
+
+.widget-wrapper {
+  padding: 0.5em;
+  min-width: 350px;
+  max-width: 100%;
+}
+
+.selectable-tabs {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+  background-color: var(--text) !important;
+}
+
+#tabs .selectable-tabs .selectable-tab {
+  padding: 0.5em;
+  width: 100%;
+  display: inline-block;
+  flex: 1; /* Equal distribution of space among items */
+  flex-basis: 0;
+  text-decoration: none;
+  background-color: #1976D2;
+  color: var(--text) !important;
+  border: 1px solid #ccc;
+  display: inline-block;
+}
+
+.selectable-tab:hover {
+  background-color: #2196F3 !important;
+}
+
+.ui-tabs-active {
+  background-color: var(--dark-primary);
+  border-bottom: 4px solid orange;
+}
+
+.dialpad-tab {
+  width: 30% !important;
+}
+
+.call-controls-tab {
+  width: 40% !important;
+}
+
+.settings-tab {
+  width: 30% !important;
+}
+
+.left-bordered {
+  border-left: 1px solid var(--divider);
+}
+
+/* #tabs * {
+  outline: 1px solid red;
+} */
+
+.tab {
+  min-width: 300px;
+  max-width: 100%;
+  flex: 1;
 }
 
 main {
@@ -65,26 +104,6 @@ main {
   /* width: 300px; */
   /* height: 60px; */
   margin-bottom: 10px;
-}
-
-/* Center Column */
-/* input {
-  font-family: Helvetica-LightOblique, Helvetica, sans-serif;
-  font-style: oblique;
-  font-size: 1em;
-  width: 100%;
-  height: 2.5em;
-  padding: 0;
-  display: block;
-  margin: 10px 0;
-}
-*/
-
-.telephony-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 div#volume-indicators {
