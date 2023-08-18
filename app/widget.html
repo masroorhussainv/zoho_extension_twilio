@@ -19,57 +19,67 @@
   <!-- dialpad html code here-->
 
   <!--  twilio quickstart -->
-  <div class="upper">
-    <div id="twilio-target-phone-number" class="hidex"></div>
-    <button id="startup-button">Start up the Device</button>
+  <div class="telephony-wrapper">
+    <!-- <div class="upper">
+      <div id="twilio-target-phone-number" class="hide"></div>
+      <button id="startup-button">Start up the Device</button>
+    </div> -->
+    <main id="controls">
+
+      <section class="flex-item" id="info-section">
+
+        <!-- <h2>Your Device Info</h2> -->
+        <!-- <div id="client-name"></div> -->
+        <div id="output-selection" class="hide">
+          <label>Ringtone Devices</label>
+          <select id="ringtone-devices" multiplex></select>
+          <label>Speaker Devices</label>
+          <select id="speaker-devices" multiplex></select>
+          <button id="get-devices">Seeing "Unknown" devices?</button>
+        </div>
+
+      </section>
+
+      <section class="flex-item" id="instructions-section">
+
+        <!-- <h2>Make a Call</h2> -->
+        <div id="call-controls" class="hide">
+          <form>
+            <label for="phone-number"
+            >Enter a phone number</label
+            >
+            <input id="phone-number" type="text" placeholder="+15552221234" />
+            <button id="button-call" type="submit">Call</button>
+            <button id="button-hangup-outgoing" class="hide">Hang Up</button>
+          </form>
+
+          <div id="incoming-call" class="hide">
+            <!-- <h2>Incoming Call Controls</h2> -->
+            <p class="instructions">
+              Incoming Call from <span id="incoming-number"></span>
+            </p>
+            <button id="button-accept-incoming">Accept</button>
+            <button id="button-reject-incoming">Reject</button>
+          </div>
+          <button id="button-hangup-incoming" class="hide">Hangup</button>
+          <div id="volume-indicators" class="hide">
+            <label>Mic Volume</label>
+            <div id="input-volume"></div>
+            <br /><br />
+            <label>Speaker Volume</label>
+            <div id="output-volume"></div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- <section class="flex-item" id="logs-section">
+        <h2>Event Log</h2>
+        <div class="hide" id="log"></div>
+      </section> -->
+
+    </main>
   </div>
-  <main id="controls">
-    <section class="flex-item" id="info-section">
-      <h2>Your Device Info</h2>
-      <div id="client-name"></div>
-      <div id="output-selection" class="hidex">
-        <label>Ringtone Devices</label>
-        <select id="ringtone-devices" multiple></select>
-        <label>Speaker Devices</label>
-        <select id="speaker-devices" multiple></select
-        ><br />
-        <button id="get-devices">Seeing "Unknown" devices?</button>
-      </div>
-    </section>
-    <section class="flex-item" id="instructions-section">
-      <h2>Make a Call</h2>
-      <div id="call-controls" class="hidex">
-        <form>
-          <label for="phone-number"
-          >Enter a phone number or client name</label
-          >
-          <input id="phone-number" type="text" placeholder="+15552221234" />
-          <button id="button-call" type="submit">Call</button>
-          <button id="button-hangup-outgoing" class="hidex">Hang Up</button>
-        </form>
-        <div id="incoming-call" class="hidex">
-          <h2>Incoming Call Controls</h2>
-          <p class="instructions">
-            Incoming Call from <span id="incoming-number"></span>
-          </p>
-          <button id="button-accept-incoming">Accept</button>
-          <button id="button-reject-incoming">Reject</button>
-        </div>
-        <button id="button-hangup-incoming" class="hidex">Hangup</button>
-        <div id="volume-indicators" class="hidex">
-          <label>Mic Volume</label>
-          <div id="input-volume"></div>
-          <br /><br />
-          <label>Speaker Volume</label>
-          <div id="output-volume"></div>
-        </div>
-      </div>
-    </section>
-    <!-- <section class="flex-item" id="logs-section">
-      <h2>Event Log</h2>
-      <div class="hidex" id="log"></div>
-    </section> -->
-  </main>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="./js/twilio_functions.js"></script>

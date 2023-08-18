@@ -23,7 +23,7 @@ const TwilioNamespace = {
     );
     const phoneNumberInput = document.getElementById("phone-number");
     const incomingPhoneNumberEl = document.getElementById("incoming-number");
-    const startupButton = document.getElementById("startup-button");
+    // const startupButton = document.getElementById("startup-button");
 
     let device;
     let token;
@@ -37,7 +37,7 @@ const TwilioNamespace = {
     getAudioDevicesButton.onclick = getAudioDevices;
     speakerDevices.addEventListener("change", updateOutputDevice);
     ringtoneDevices.addEventListener("change", updateRingtoneDevice);
-    startupButton.addEventListener('onclick', startupClient)
+    // startupButton.addEventListener('onclick', startupClient)
 
     // SETUP STEP 1:
     // Browser client should be started after a user gesture
@@ -224,7 +224,9 @@ const TwilioNamespace = {
 
     function setClientNameUI(clientName) {
       var div = document.getElementById("client-name");
-      div.innerHTML = `Your client name: <strong>${clientName}</strong>`;
+      if(div) {
+        div.innerHTML = `Your client name: <strong>${clientName}</strong>`;
+      }
     }
 
     function resetIncomingCallUI() {
@@ -308,6 +310,7 @@ const TwilioNamespace = {
         if (isActive) {
           option.setAttribute("selected", "selected");
         }
+        option.textContent = device.label;
         selectEl.appendChild(option);
       });
     }

@@ -35,9 +35,14 @@ header {
   text-align: center;
 } */
 
+* {
+  box-sizing: border-box;
+}
+
 main {
-  padding: 3em;
-  max-width: 1200px;
+  padding: 0.5em;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -46,12 +51,19 @@ main {
 }
 
 .flex-item {
-  margin-bottom: 2rem;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  width: 100%;
+  max-width: 100%;
+}
+
+.flex-item * {
+  /* outline: 1px solid red; */
 }
 
 #output-selection select {
-  width: 300px;
-  height: 60px;
+  /* width: 300px; */
+  /* height: 60px; */
   margin-bottom: 10px;
 }
 
@@ -68,10 +80,18 @@ main {
 }
 */
 
+.telephony-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 div#volume-indicators {
-  padding: 10px;
+  /* padding: 10px; */
   margin-top: 20px;
-  width: 500px;
+  width: 100%;
+  max-width: 100%;
   text-align: left;
 }
 
