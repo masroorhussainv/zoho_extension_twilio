@@ -1,0 +1,105 @@
+@import url(https://fonts.googleapis.com/css?family=Share+Tech+Mono);
+
+#widget-wrapper {
+  padding: 0.5em;
+  min-width: 350px;
+  max-width: 100%;
+
+  .selectable-tabs {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+    background-color: var(--text) !important;
+  }
+
+  #tabs .selectable-tabs .selectable-tab {
+    padding: 0.5em;
+    width: 100%;
+    display: inline-block;
+    flex: 1; /* Equal distribution of space among items */
+    flex-basis: 0;
+    text-decoration: none;
+    background-color: #1976D2;
+    color: $text !important;
+    border: 1px solid #ccc;
+    display: inline-block;
+  }
+
+  .selectable-tab:hover {
+    background-color: #2196F3 !important;
+  }
+
+  .ui-tabs-active {
+    background-color: $dark-primary;
+    border-bottom: 4px solid orange;
+  }
+
+  .dialpad-tab {
+    width: 30% !important;
+  }
+
+  .call-controls-tab {
+    width: 40% !important;
+  }
+
+  .settings-tab {
+    width: 30% !important;
+  }
+
+  .left-bordered {
+    border-left: 1px solid $divider;
+  }
+
+  /* #tabs * {
+    outline: 1px solid red;
+  } */
+
+  .tab {
+    min-width: 300px;
+    max-width: 100%;
+    flex: 1;
+  }
+
+  main {
+    padding: 0.5em;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .flex-item {
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #output-selection select {
+    margin-bottom: 10px;
+  }
+
+  div#volume-indicators {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+  }
+
+  div#volume-indicators > div {
+    display: block;
+    height: 20px;
+    width: 0;
+  }
+
+  /* custon */
+  #output-selection {
+    display: flex;
+    flex-direction: column;
+  }
+}

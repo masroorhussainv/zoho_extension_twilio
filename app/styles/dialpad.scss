@@ -1,0 +1,156 @@
+@import 'variables';
+
+#dialpad-ui {
+
+  .input-container {
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 0.5em;
+  }
+
+  .styled-input {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .delete-button {
+    max-width: 10%;
+    width: 10%;
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+    font-size: 18px;
+  }
+
+  .dialpad {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+
+    .row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .number {
+        width: 30%;
+        height: 40px;
+        border: none;
+        border-radius: 10px; /* Adjusted from 50% to 10px for square style */
+        background-color: $dark-primary;
+        color: $text;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover, &.call:hover {
+          background-color: $primary;
+        }
+      }
+
+      .action {
+        width: 30%;
+        height: 40px;
+        border: none;
+        border-radius: 10px; /* Adjusted from 50% to 10px for square style */
+        font-size: 18px;
+        color: $text;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: $primary 0.3s ease;
+
+        &:hover {
+          background-color: $primary;
+        }
+      }
+
+      .call {
+        width: 100% !important;
+        background-color: $dark-primary;
+      }
+
+      .clear {
+        background-color: $accent-two;
+
+        &:hover {
+          background-color: $accent-one;
+        }
+      }
+    }
+  }
+}
+
+#active-call-ui {
+  padding: 2em 0 2em 0;
+
+  .info {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    color: $primary-text;
+
+    .phone-number {
+      font-size: 1.5em;
+      padding: 0.5em;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      gap: 10px;
+
+      // #calling-text {
+        color: $secondary-text;
+      // }
+    }
+
+    .call-duration {
+      font-size: 1.5em;
+      padding: 0.5em;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      color: $dark-primary;
+    }
+  }
+
+  .controls {
+    padding: 0.5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    flex-wrap: wrap;
+
+    button {
+      height: 40px;
+      border: none;
+      border-radius: 10px; /* Adjusted from 50% to 10px for square style */
+      background-color: $accent-two;
+      color: $text;
+      font-size: 18px;
+      padding: 0.5em;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $accent-one;
+      }
+    }
+  }
+}

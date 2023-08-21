@@ -12,6 +12,11 @@ const TwilioNamespace = {
     const getAudioDevicesButton = document.getElementById("get-devices");
     const logDiv = document.getElementById("log");
     const incomingCallDiv = document.getElementById("incoming-call");
+
+    let callStartTime;
+    let callEndTime;
+    let callInterval;
+
     const incomingCallHangupButton = document.getElementById(
       "button-hangup-incoming"
     );
@@ -36,6 +41,11 @@ const TwilioNamespace = {
       if(!['', null, undefined].includes(phoneNumber)) {
         console.log('making call to: ', phoneNumber);
         // makeOutgoingCall();
+        setTimeout(() => {
+          console.log('call accept event emitted');
+          handleAcceptedOutgoingCall()
+        }, 0)
+
       }
     };
     getAudioDevicesButton.onclick = getAudioDevices;
@@ -109,8 +119,67 @@ const TwilioNamespace = {
       }
     }
 
-    // MAKE AN OUTGOING CALL
+    function updateCallDuration() {
+      if (callStartTime) {
+        const currentTime = new Date();
+        const elapsedSeconds = Math.round((currentTime - callStartTime) / 1000);
+        console.log(`Call duration: ${elapsedSeconds} seconds`);
+        // Update UI with the elapsedSeconds value
+        callDuration = document.getElementById('call-elapsed-duration')
+        callDuration.innerText = formatDuration(elapsedSeconds);
+      }
+    }
 
+    function startCallTimeTracking() {
+      callStartTime = new Date();
+      callInterval = setInterval(updateCallDuration, 1000);
+    }
+
+    function stopCallTimeTracking() {
+      callEndTime = new Date();
+
+      if (callInterval) {
+        clearInterval(callInterval);
+        callInterval = null; // Reset the interval variable
+        callDuration = document.getElementById('call-elapsed-duration')
+        callDuration.innerText = '00:00:00';
+      }
+
+      if (callStartTime) {
+        const callDuration = (callEndTime - callStartTime) / 1000; // Convert to seconds
+        console.log(`Call ended. Duration: ${callDuration} seconds`);
+      } else {
+        console.log('Call ended.');
+      }
+    }
+
+    function formatDuration(seconds) {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const remainingSeconds = seconds % 60;
+
+      const formattedHours = hours < 10 ? `0${hours}` : hours;
+      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+      const formattedSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
+
+      return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+    }
+
+    function handleAcceptedOutgoingCall() {
+      startCallTimeTracking()
+      updateUIAcceptedOutgoingCall()
+
+      setTimeout(()=>{
+        handleDisconnectedOutgoingCall()
+      }, 8000)
+    }
+
+    function handleDisconnectedOutgoingCall() {
+      stopCallTimeTracking()
+      updateUIDisconnectedOutgoingCall()
+    }
+
+    // MAKE AN OUTGOING CALL
     async function makeOutgoingCall() {
       var params = {
         // get the phone number to call from the DOM
@@ -125,9 +194,9 @@ const TwilioNamespace = {
 
         // add listeners to the Call
         // "accepted" means the call has finished connecting and the state is now "open"
-        call.on("accept", updateUIAcceptedOutgoingCall);
-        call.on("disconnect", updateUIDisconnectedOutgoingCall);
-        call.on("cancel", updateUIDisconnectedOutgoingCall);
+        call.on("accept", handleAcceptedOutgoingCall);
+        call.on("disconnect", handleDisconnectedOutgoingCall);
+        call.on("cancel", handleDisconnectedOutgoingCall);
 
         outgoingCallHangupButton.onclick = () => {
           log("Hanging up ...");
@@ -139,19 +208,41 @@ const TwilioNamespace = {
       }
     }
 
+    function switchFromDialpadUiToCallUi() {
+      // startCallTimeTracking()
+      callButton.disabled = true;
+      dialpadUi = document.getElementById('dialpad-ui')
+      dialpadUi.classList.add('hide')
+      callUi = document.getElementById('active-call-ui')
+      callUi.classList.remove('hide')
+      // outgoingCallHangupButton.classList.add("hide");
+    }
+
+    function switchFromCallUiToDialpadUi() {
+      // stopCallTimeTracking()
+      callButton.disabled = false;
+      dialpadUi = document.getElementById('dialpad-ui')
+      dialpadUi.classList.remove('hide')
+      callUi = document.getElementById('active-call-ui')
+      callUi.classList.add('hide')
+    }
+
     function updateUIAcceptedOutgoingCall(call) {
       log("Call in progress ...");
-      callButton.disabled = true;
-      outgoingCallHangupButton.classList.remove("hide");
-      volumeIndicators.classList.remove("hide");
-      bindVolumeIndicators(call);
+      // hide the dialpad ui
+      switchFromDialpadUiToCallUi()
+
+      // outgoingCallHangupButton.classList.remove("hide");
+      // volumeIndicators.classList.remove("hide");
+      // bindVolumeIndicators(call);
     }
 
     function updateUIDisconnectedOutgoingCall() {
       log("Call disconnected.");
-      callButton.disabled = false;
-      outgoingCallHangupButton.classList.add("hide");
-      volumeIndicators.classList.add("hide");
+      switchFromCallUiToDialpadUi()
+
+      // outgoingCallHangupButton.classList.add("hide");
+      // volumeIndicators.classList.add("hide");
     }
 
     // HANDLE INCOMING CALL

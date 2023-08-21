@@ -22,104 +22,122 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive Dial Pad</title>
-  <!-- <link rel="stylesheet" href="./css/dialpad.css"> -->
-  <!-- <link rel="stylesheet" href="./css/collapsible.css"> -->
 
   <title>Twilio Voice JavaScript SDK Quickstart</title>
-  <link rel="stylesheet" href="./css/widget.css" />
-  <link rel="stylesheet" href="./css/dialpad.css" />
+  <link rel="stylesheet" href="./css/main.css" />
 </head>
+
 <body>
-  <!-- dialpad html code here-->
-  <div id="tabs" class="widget-wrapper">
-    <ul class="selectable-tabs">
-      <li class="dialpad-tab"><a class="selectable-tab" href="#tabs-1">Dialpad</a></li>
-      <li class="call-controls-tab"><a class="selectable-tab" href="#tabs-2">Call Controls</a></li>
-      <li class="settings-tab"><a class="selectable-tab" href="#tabs-3">Settings</a></li>
-    </ul>
+  <div id="widget-wrapper">
+    <div id="tabs">
+      <ul class="selectable-tabs">
+        <li class="dialpad-tab"><a class="selectable-tab" href="#tabs-1">Dialpad</a></li>
+        <li class="call-controls-tab"><a class="selectable-tab" href="#tabs-2">Call Controls</a></li>
+        <li class="settings-tab"><a class="selectable-tab" href="#tabs-3">Settings</a></li>
+      </ul>
 
-    <div id="tabs-1" class="tab">
-      <div class="input-container">
-        <input type="text" id="phone-number" class="styled-input" placeholder="" readonly>
-        <span id="deleteButton" class="delete-button" onclick="deleteLastDigit()">&#x2715;</span>
+      <div id="tabs-1" class="tab">
+
+        <div id="dialpad-ui">
+          <div class="input-container">
+            <input type="text" id="phone-number" class="styled-input" placeholder="" readonly>
+            <span id="deleteButton" class="delete-button" onclick="deleteLastDigit()">&#x2715;</span>
+          </div>
+
+          <div class="dialpad">
+            <div class="row">
+              <button class="number" onclick="appendNumber('1')">1</button>
+              <button class="number" onclick="appendNumber('2')">2</button>
+              <button class="number" onclick="appendNumber('3')">3</button>
+            </div>
+            <div class="row">
+              <button class="number" onclick="appendNumber('4')">4</button>
+              <button class="number" onclick="appendNumber('5')">5</button>
+              <button class="number" onclick="appendNumber('6')">6</button>
+            </div>
+            <div class="row">
+              <button class="number" onclick="appendNumber('7')">7</button>
+              <button class="number" onclick="appendNumber('8')">8</button>
+              <button class="number" onclick="appendNumber('9')">9</button>
+            </div>
+            <div class="row">
+              <button class="number" onclick="appendNumber('*')">*</button>
+              <button class="number" onclick="appendNumber('0')">0</button>
+              <button class="number" onclick="appendNumber('#')">#</button>
+            </div>
+            <div class="row">
+              <button class="number" onclick="appendNumber('+')">+</button>
+              <button class="action clear" onclick="clearNumber()">Clear</button>
+            </div>
+            <div class="row">
+              <button id="button-call" class="action call">Call</button>
+              <!-- <button id="button-hangup-outgoing" class="action hang-up hide">Call</button> -->
+            </div>
+          </div>
+        </div>
+
+
+        <div id="active-call-ui" class="hide">
+          <div class="info">
+            <div class="phone-number">
+              <span id="calling-text">Calling</span>
+              <span class="call-phone-number">Phone Number</span>
+            </div>
+            <div class="call-duration">
+              <span id="call-elapsed-duration">00:00:00</span>
+            </div>
+          </div>
+          <div class="controls">
+            <button class="control-button">Mute</button>
+            <button class="control-button end-call">End</button>
+            <!-- <button class="control-button">Speaker</button> -->
+          </div>
+        </div>
       </div>
 
-      <div class="dialpad">
-        <div class="row">
-          <button class="number" onclick="appendNumber('1')">1</button>
-          <button class="number" onclick="appendNumber('2')">2</button>
-          <button class="number" onclick="appendNumber('3')">3</button>
+      <div id="tabs-2" class="tab">
+        <!-- <h2>Make a Call</h2> -->
+        <div id="call-controls">
+          <!-- <form> -->
+            <!-- <label for="phone-number"
+            >Enter a phone number</label> -->
+            <!-- <input id="phone-number" type="text" placeholder="+15552221234"/> -->
+
+            <!-- <button id="button-call" type="submit">Call</button> -->
+            <!-- <button id="button-hangup-outgoing" class="hide">Hang Up</button> -->
+          <!-- </form> -->
+
+          <div id="incoming-call" class="hide">
+            <!-- <h2>Incoming Call Controls</h2> -->
+            <p class="instructions">
+              Incoming Call from <span id="incoming-number"></span>
+            </p>
+            <button id="button-accept-incoming">Accept</button>
+            <button id="button-reject-incoming">Reject</button>
+          </div>
+          <button id="button-hangup-incoming" class="hide">Hangup</button>
+          <!-- <div id="volume-indicators" class="hide">
+            <label>Mic Volume</label>
+            <div id="input-volume"></div>
+            <br /><br />
+            <label>Speaker Volume</label>
+            <div id="output-volume"></div>
+          </div> -->
         </div>
-        <div class="row">
-          <button class="number" onclick="appendNumber('4')">4</button>
-          <button class="number" onclick="appendNumber('5')">5</button>
-          <button class="number" onclick="appendNumber('6')">6</button>
-        </div>
-        <div class="row">
-          <button class="number" onclick="appendNumber('7')">7</button>
-          <button class="number" onclick="appendNumber('8')">8</button>
-          <button class="number" onclick="appendNumber('9')">9</button>
-        </div>
-        <div class="row">
-          <button class="number" onclick="appendNumber('*')">*</button>
-          <button class="number" onclick="appendNumber('0')">0</button>
-          <button class="number" onclick="appendNumber('#')">#</button>
-        </div>
-        <div class="row">
-          <button class="number" onclick="appendNumber('+')">+</button>
-          <button class="action clear" onclick="clearNumber()">Clear</button>
-        </div>
-        <div class="row">
-          <button id="button-call" class="action call">Call</button>
-          <button id="button-hangup-outgoing" class="action hang-up hide">Call</button>
+      </div>
+
+      <div id="tabs-3" class="tab">
+        <!-- <h2>Your Device Info</h2> -->
+        <!-- <div id="client-name"></div> -->
+        <div id="output-selection" class="hidex">
+          <label>Ringtone Devices</label>
+          <select id="ringtone-devices" multiplex></select>
+          <label>Speaker Devices</label>
+          <select id="speaker-devices" multiplex></select>
+          <button id="get-devices">Seeing "Unknown" devices?</button>
         </div>
       </div>
     </div>
-
-    <div id="tabs-2" class="tab">
-      <!-- <h2>Make a Call</h2> -->
-      <div id="call-controls">
-        <!-- <form> -->
-          <!-- <label for="phone-number"
-          >Enter a phone number</label> -->
-          <!-- <input id="phone-number" type="text" placeholder="+15552221234"/> -->
-
-          <!-- <button id="button-call" type="submit">Call</button> -->
-          <!-- <button id="button-hangup-outgoing" class="hide">Hang Up</button> -->
-        <!-- </form> -->
-
-        <div id="incoming-call" class="hide">
-          <!-- <h2>Incoming Call Controls</h2> -->
-          <p class="instructions">
-            Incoming Call from <span id="incoming-number"></span>
-          </p>
-          <button id="button-accept-incoming">Accept</button>
-          <button id="button-reject-incoming">Reject</button>
-        </div>
-        <button id="button-hangup-incoming" class="hide">Hangup</button>
-        <!-- <div id="volume-indicators" class="hide">
-          <label>Mic Volume</label>
-          <div id="input-volume"></div>
-          <br /><br />
-          <label>Speaker Volume</label>
-          <div id="output-volume"></div>
-        </div> -->
-      </div>
-    </div>
-
-    <div id="tabs-3" class="tab">
-      <!-- <h2>Your Device Info</h2> -->
-      <!-- <div id="client-name"></div> -->
-      <div id="output-selection" class="hidex">
-        <label>Ringtone Devices</label>
-        <select id="ringtone-devices" multiplex></select>
-        <label>Speaker Devices</label>
-        <select id="speaker-devices" multiplex></select>
-        <button id="get-devices">Seeing "Unknown" devices?</button>
-      </div>
-    </div>
-  </div>
   </div>
 
   <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->

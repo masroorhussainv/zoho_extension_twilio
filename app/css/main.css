@@ -1,0 +1,250 @@
+/* variables.scss */
+@import url(https://fonts.googleapis.com/css?family=Share+Tech+Mono);
+* {
+  box-sizing: border-box;
+}
+
+body,
+p {
+  padding: 0;
+  margin: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Other Styles */
+.hide {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+#widget-wrapper {
+  padding: 0.5em;
+  min-width: 350px;
+  max-width: 100%;
+  /* #tabs * {
+    outline: 1px solid red;
+  } */
+  /* custon */
+}
+#widget-wrapper .selectable-tabs {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+  background-color: var(--text) !important;
+}
+#widget-wrapper #tabs .selectable-tabs .selectable-tab {
+  padding: 0.5em;
+  width: 100%;
+  display: inline-block;
+  flex: 1; /* Equal distribution of space among items */
+  flex-basis: 0;
+  text-decoration: none;
+  background-color: #1976D2;
+  color: #FFFFFF !important;
+  border: 1px solid #ccc;
+  display: inline-block;
+}
+#widget-wrapper .selectable-tab:hover {
+  background-color: #2196F3 !important;
+}
+#widget-wrapper .ui-tabs-active {
+  background-color: #388E3C;
+  border-bottom: 4px solid orange;
+}
+#widget-wrapper .dialpad-tab {
+  width: 30% !important;
+}
+#widget-wrapper .call-controls-tab {
+  width: 40% !important;
+}
+#widget-wrapper .settings-tab {
+  width: 30% !important;
+}
+#widget-wrapper .left-bordered {
+  border-left: 1px solid #BDBDBD;
+}
+#widget-wrapper .tab {
+  min-width: 300px;
+  max-width: 100%;
+  flex: 1;
+}
+#widget-wrapper main {
+  padding: 0.5em;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+#widget-wrapper .flex-item {
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  width: 100%;
+  max-width: 100%;
+}
+#widget-wrapper #output-selection select {
+  margin-bottom: 10px;
+}
+#widget-wrapper div#volume-indicators {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 100%;
+  text-align: left;
+}
+#widget-wrapper div#volume-indicators > div {
+  display: block;
+  height: 20px;
+  width: 0;
+}
+#widget-wrapper #output-selection {
+  display: flex;
+  flex-direction: column;
+}
+
+/* variables.scss */
+#dialpad-ui .input-container {
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.5em;
+}
+#dialpad-ui .styled-input {
+  width: 100%;
+  max-width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+#dialpad-ui .delete-button {
+  max-width: 10%;
+  width: 10%;
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 18px;
+}
+#dialpad-ui .dialpad {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+#dialpad-ui .dialpad .row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+#dialpad-ui .dialpad .row .number {
+  width: 30%;
+  height: 40px;
+  border: none;
+  border-radius: 10px; /* Adjusted from 50% to 10px for square style */
+  background-color: #388E3C;
+  color: #FFFFFF;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+#dialpad-ui .dialpad .row .number:hover, #dialpad-ui .dialpad .row .number.call:hover {
+  background-color: #4CAF50;
+}
+#dialpad-ui .dialpad .row .action {
+  width: 30%;
+  height: 40px;
+  border: none;
+  border-radius: 10px; /* Adjusted from 50% to 10px for square style */
+  font-size: 18px;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: #4CAF50 0.3s ease;
+}
+#dialpad-ui .dialpad .row .action:hover {
+  background-color: #4CAF50;
+}
+#dialpad-ui .dialpad .row .call {
+  width: 100% !important;
+  background-color: #388E3C;
+}
+#dialpad-ui .dialpad .row .clear {
+  background-color: #D32F2F;
+}
+#dialpad-ui .dialpad .row .clear:hover {
+  background-color: #FF5252;
+}
+
+#active-call-ui {
+  padding: 2em 0 2em 0;
+}
+#active-call-ui .info {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  color: #212121;
+}
+#active-call-ui .info .phone-number {
+  font-size: 1.5em;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  color: #757575;
+}
+#active-call-ui .info .call-duration {
+  font-size: 1.5em;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: #388E3C;
+}
+#active-call-ui .controls {
+  padding: 0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  flex-wrap: wrap;
+}
+#active-call-ui .controls button {
+  height: 40px;
+  border: none;
+  border-radius: 10px; /* Adjusted from 50% to 10px for square style */
+  background-color: #D32F2F;
+  color: #FFFFFF;
+  font-size: 18px;
+  padding: 0.5em;
+  cursor: pointer;
+}
+#active-call-ui .controls button:hover {
+  background-color: #FF5252;
+}
+
+/*# sourceMappingURL=main.css.map */
