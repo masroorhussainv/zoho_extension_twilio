@@ -2,17 +2,17 @@
 <head>
   <script src="/js/ZohoEmbededAppSDK.min.js"></script>
   <!-- <script src="/js/jquery-min.js"></script> -->
-  <script src="./js/main.js"></script>
-  <script src="./js/dialpad.js"></script>
-  <script src="./js/collapsible.js"></script>
-
   <!-- jquery-ui -->
   <!-- <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-  <title>jQuery UI Tabs - Default functionality</title>
   <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+  <script src="./js/main.js"></script>
+  <script src="./js/login.js"></script>
+  <script src="./js/dialpad.js"></script>
+  <!--  <script src="./js/collapsible.js"></script>-->
 
   <script>
     $( function() {
@@ -29,6 +29,30 @@
 
 <body>
   <div id="widget-wrapper">
+
+    <div id="spinner-wrapper">
+      <div id="spinner">
+      </div>
+    </div>
+
+    <!-- Login UI -->
+    <div id="login-container">
+      <form>
+        <div class="input-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div class="input-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <div class="input-group">
+          <button type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Post Login UI -->
     <div id="tabs">
       <ul class="selectable-tabs">
         <li class="dialpad-tab"><a class="selectable-tab" href="#tabs-1">Dialpad</a></li>
@@ -88,7 +112,7 @@
             </div>
           </div>
           <div class="controls">
-            <button class="control-button">Mute</button>
+            <button id="mute-button">Mute</button>
             <button class="control-button end-call">End</button>
             <!-- <button class="control-button">Speaker</button> -->
           </div>

@@ -1,0 +1,47 @@
+// Import the jQuery UI CSS
+@import url("https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css");
+@import 'variables';
+
+#login-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  .input-group {
+    margin-bottom: 15px;
+
+    label {
+      display: block;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: $blue-primary;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: $blue-lighter;
+    }
+  }
+}

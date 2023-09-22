@@ -16,6 +16,8 @@ const TwilioNamespace = {
     let callStartTime;
     let callEndTime;
     let callInterval;
+    let isMicMuted = false; // Track the microphone mute state
+    let activeConnection; // Store the active connection
 
     const incomingCallHangupButton = document.getElementById(
       "button-hangup-incoming"
@@ -135,6 +137,28 @@ const TwilioNamespace = {
       callInterval = setInterval(updateCallDuration, 1000);
     }
 
+    // Function to toggle microphone mute state
+    function toggleMicMute() {
+      if (device) {
+        const activeConnection = device.activeConnection();
+
+        if (activeConnection) {
+          const audioTracks = activeConnection.mediaStream.stream.getAudioTracks();
+
+          if (audioTracks && audioTracks.length > 0) {
+            audioTracks.forEach((track) => {
+              track.enabled = !isMicMuted; // Toggle the enabled state
+            });
+
+            isMicMuted = !isMicMuted; // Toggle the mute state
+
+            // Update UI button text based on the mute state
+            muteButton.innerText = isMicMuted ? "Unmute Mic" : "Mute Mic";
+          }
+        }
+      }
+    }
+
     function stopCallTimeTracking() {
       callEndTime = new Date();
 
@@ -168,6 +192,9 @@ const TwilioNamespace = {
     function handleAcceptedOutgoingCall() {
       startCallTimeTracking()
       updateUIAcceptedOutgoingCall()
+
+      const muteButton = document.getElementById("mute-button");
+      muteButton.addEventListener("click", toggleMicMute);
 
       setTimeout(()=>{
         handleDisconnectedOutgoingCall()

@@ -1,20 +1,20 @@
 function initializeWidget()
 {
 
-  function initializeTwilioConfig(config_data={}) {
-    console.log('going to set up twilio now');
-    console.log(config_data);
-    TwilioNamespace.setUpTwilio(config_data)
-    console.log('twilio set up initiated');
-  }
+  // function initializeTwilioConfig(config_data={}) {
+  //   console.log('going to set up twilio now');
+  //   console.log(config_data);
+  //   TwilioNamespace.setUpTwilio(config_data)
+  //   console.log('twilio set up initiated');
+  // }
 
   // Todo start
   // remove when extension is ready
-  if(window.location.host.includes('127.0.0.1')) {
-    window.__currentUserEmail = 'localhost'
-    window.__twilioTargetPhoneNumber = "+12187520884"
-    initializeTwilioConfig({currentUserEmail: window.__currentUserEmail});
-  }
+  // if(window.location.host.includes('127.0.0.1')) {
+  //   window.__currentUserEmail = 'localhost'
+  //   window.__twilioTargetPhoneNumber = "+12187520884"
+  //   initializeTwilioConfig({currentUserEmail: window.__currentUserEmail});
+  // }
   // Todo end
 
   /*
@@ -57,9 +57,9 @@ function initializeWidget()
       {
         console.log('getcurrentuser', response);
         // document.getElementById("userInfo").innerHTML = JSON.stringify(response,null,2);
-        window.__currentUserEmail = response.users?.[0]?.email || '';
-        console.log('__currentUserEmail',window.__currentUserEmail);
-        initializeTwilioConfig({currentUserEmail: window.__currentUserEmail});
+        // window.__currentUserEmail = response.users?.[0]?.email || '';
+        // console.log('__currentUserEmail',window.__currentUserEmail);
+        // initializeTwilioConfig({currentUserEmail: window.__currentUserEmail});
       });
 
   })
