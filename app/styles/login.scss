@@ -30,6 +30,13 @@
     }
   }
 
+  .invalid {
+    border: 2px solid red; /* Add a red border to invalid fields */
+  }
+  .error-message {
+    color: red; /* Style error messages in red */
+  }
+
   button[type="submit"] {
     width: 100%;
     padding: 10px;

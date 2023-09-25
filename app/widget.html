@@ -9,6 +9,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
+  <script src="./js/constants.js"></script>
   <script src="./js/main.js"></script>
   <script src="./js/login.js"></script>
   <script src="./js/dialpad.js"></script>
@@ -39,12 +40,14 @@
     <div id="login-container">
       <form>
         <div class="input-group">
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" required>
+          <label for="email">Email:</label>
+          <input type="text" id="email" name="email" required>
+          <span id="email-error" class="error-message hides"></span><br><br>
         </div>
         <div class="input-group">
           <label for="password">Password:</label>
           <input type="password" id="password" name="password" required>
+          <span id="password-error" class="error-message hides"></span><br><br>
         </div>
         <div class="input-group">
           <button type="submit">Login</button>

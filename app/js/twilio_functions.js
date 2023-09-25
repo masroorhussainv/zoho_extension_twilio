@@ -61,12 +61,43 @@ const TwilioNamespace = {
     // startupButton.addEventListener("click", startupClient);
     startupClient();
 
+    function getTwilioAuthToken() {
+      return new Promise(function(resolve, reject) {
+        let backendAuthHeader = localStorage.getItem('_twilioBackendAuthHeader')
+        let url = `${BACKEND_URLS.baseURL}${BACKEND_URLS.twilioApi.authToken}`;
+        // let url = `http://127.0.0.1:3000${BACKEND_URLS.twilioApi.authToken}`
+
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Authorization": backendAuthHeader,
+          },
+        })
+          .then(response => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              return response.text().then(text => {
+                throw new Error(text);
+              });
+            }
+          })
+          .then(data => {
+            resolve(data);
+          })
+          .catch(error => {
+            reject(error.toString());
+          });
+      });
+    }
+
     // SETUP STEP 2: Request an Access Token
     async function startupClient() {
       log("Requesting Access Token...");
 
       try {
-        const data = await $.getJSON(`http://localhost:3000/twilio/auth_token?identity=${config_data['currentUserEmail']}`);
+        // const data = await $.getJSON(`http://localhost:3000/twilio/auth_token?identity=${config_data['currentUserEmail']}`);
+        const data = await getTwilioAuthToken()
         log("Got a token.");
         token = data.token;
         setClientNameUI(data.identity);
@@ -74,6 +105,7 @@ const TwilioNamespace = {
       } catch (err) {
         log(err);
         log("An error occurred. See your browser console for more information.");
+        showLoginUi()
       }
     }
 

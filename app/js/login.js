@@ -1,11 +1,11 @@
-const BACKEND = {
-  baseURL: 'https://initially-equal-collie.ngrok-free.app',
-  loginEndpoint: '/twilio/extension_login',
-  validateTokenEndpoint: '/twilio/validate_extension_login_token'
-}
+// const BACKEND_URLS = {
+//   baseURL: 'https://initially-equal-collie.ngrok-free.app',
+//   loginEndpoint: '/api/twilio_users/login',
+//   validateTokenEndpoint: '/api/twilio_users/validate_token'
+// }
 
 function initializeTwilioConfig(config_data={}) {
-    console.log('going to set up twilio now');
+  console.log('setting up twilio now');
     console.log(config_data);
     TwilioNamespace.setUpTwilio(config_data)
     console.log('twilio set up initiated');
@@ -14,10 +14,13 @@ function initializeTwilioConfig(config_data={}) {
 function showPostLoginUi() {
   $('#login-container').hide()
   $('#tabs').show();
+  console.log('going to set up twilio now');
   initializeTwilioConfig()
 }
 
 function showLoginUi() {
+  // Todo: clear all auth related local data
+  localStorage.setItem('_twilioBackendAuthHeader','')
   $('#login-container').show()
   $('#tabs').hide()
 }
@@ -36,7 +39,7 @@ function hideLoader() {
 function checkLoggedInState() {
   console.log('Checking UI')
   showLoader()
-  let token = localStorage.getItem('_twilio_extension_token')
+  let token = localStorage.getItem('_twilioBackendAuthHeader')
   hideLoader()
   if (![null, undefined, ''].includes(token)) {
     console.log('token found');
@@ -48,12 +51,18 @@ function checkLoggedInState() {
   }
 }
 
-function loginRequest() {
+function saveBackendAuthToken(token) {
+  localStorage.setItem('_twilioBackendAuthHeader', token)
+}
+
+function loginRequest(payload) {
   $.ajax({
-    url: `${BACKEND.baseURL}${BACKEND.loginEndpoint}`,
+    url: `${BACKEND_URLS.baseURL}${BACKEND_URLS.loginEndpoint}`,
     method: 'POST',
     dataType: 'json',
+    data: payload,
     success: function (response) {
+      saveBackendAuthToken(response.token)
       showPostLoginUi()
     },
     error: function (xhr, status, error) {
@@ -64,29 +73,69 @@ function loginRequest() {
 
 function validateExtensionLoginToken(token) {
   $.ajax({
-    url: `${BACKEND.baseURL}${BACKEND.validateTokenEndpoint}`,
+    url: `${BACKEND_URLS.baseURL}${BACKEND_URLS.validateTokenEndpoint}`,
     method: 'POST',
     data: { token: token },
     dataType: 'json',
     success: function(response) {
-      if (response.status) {
-        console.log('validation succeeded');
-        showPostLoginUi()
-      } else {
-        console.log('validation failed');
-        showLoginUi()
-      }
+      console.log('validation succeeded');
+      showPostLoginUi()
     },
     error: function (xhr, status, error) {
-      console.error(xhr, status, error);
+      console.log('validation failed');
+      showLoginUi()
+      // console.error(xhr, status, error);
     }
   });
+}
+
+function validateLoginForm() {
+  let $emailField = $("#email");
+  let $passwordField = $("#password");
+  let email = $emailField.val();
+  let password = $passwordField.val();
+
+  // Regular expression for email validation
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  let isValid = true;
+
+  // Reset the styles and error messages
+  $emailField.removeClass("invalid");
+  $passwordField.removeClass("invalid");
+  $("#email-error").text("");
+  $("#password-error").text("");
+
+  if (email === "") {
+    isValid = false;
+    $emailField.addClass("invalid");
+    $("#email-error").text("Email must be filled out");
+  } else if (!email.match(emailRegex)) {
+    isValid = false;
+    $emailField.addClass("invalid");
+    $("#email-error").text("Invalid email format");
+  }
+
+  if (password === "") {
+    isValid = false;
+    $passwordField.addClass("invalid");
+    $("#password-error").text("Password must be filled out");
+  } else if (password.length < 8) {
+    isValid = false;
+    $passwordField.addClass("invalid");
+    $("#password-error").text("Password must be at least 8 characters long");
+  }
+  return isValid;
 }
 
 function submitLoginForm(e) {
   e.preventDefault();
   console.log('submitting login form')
-  loginRequest()
+  if(validateLoginForm()) {
+    let email = $("#email").val();
+    let password = $("#password").val();
+    loginRequest({ email, password })
+  }
 }
 
 $(document).ready(function () {

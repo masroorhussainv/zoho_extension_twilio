@@ -143,6 +143,12 @@ button:disabled {
       border: 1px solid #ccc;
       border-radius: 3px;
       box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.1); }
+  #login-container .invalid {
+    border: 2px solid red;
+    /* Add a red border to invalid fields */ }
+  #login-container .error-message {
+    color: red;
+    /* Style error messages in red */ }
   #login-container button[type="submit"] {
     width: 100%;
     padding: 10px;
