@@ -33,7 +33,9 @@ const TwilioNamespace = {
     // const startupButton = document.getElementById("startup-button");
 
     let device;
-    let token;
+    let twilioApiAccessToken;
+    let twilioApiIdentity;
+
 
     // Event Listeners
 
@@ -91,17 +93,41 @@ const TwilioNamespace = {
       });
     }
 
+    function storeTwilioApiCredentials(token, identity) {
+      localStorage.setItem('_twilioApiAccessToken', token)
+      localStorage.setItem('_twilioApiIdentity', identity)
+    }
+
+    function deleteTwilioApiCredentials() {
+      localStorage.setItem('_twilioApiAccessToken', '')
+      localStorage.setItem('_twilioApiIdentity', '')
+    }
+
+    function refreshTwilioApiAccessToken() {
+      deleteTwilioApiCredentials()
+      startupClient()
+    }
+
     // SETUP STEP 2: Request an Access Token
     async function startupClient() {
       log("Requesting Access Token...");
 
       try {
         // const data = await $.getJSON(`http://localhost:3000/twilio/auth_token?identity=${config_data['currentUserEmail']}`);
-        const data = await getTwilioAuthToken()
-        log("Got a token.");
-        token = data.token;
-        setClientNameUI(data.identity);
+        twilioApiAccessToken = localStorage.getItem('_twilioApiAccessToken')
+        twilioApiIdentity = localStorage.getItem('_twilioApiIdentity')
+
+        if(['', null, undefined].includes(twilioApiAccessToken) || ['', null, undefined].includes(twilioApiIdentity)) {
+          const data = await getTwilioAuthToken()
+          log("Token fetched");
+          twilioApiAccessToken = data.token;
+          twilioApiIdentity = data.identity
+          storeTwilioApiCredentials(twilioApiAccessToken, twilioApiIdentity)
+        }
+
+        setClientNameUI(twilioApiIdentity);
         intitializeDevice();
+
       } catch (err) {
         log(err);
         log("An error occurred. See your browser console for more information.");
@@ -114,20 +140,25 @@ const TwilioNamespace = {
     function intitializeDevice() {
       // logDiv.classList.remove("hide");
       log("Initializing device");
+      log(twilioApiAccessToken)
+      try {
+        device = new Twilio.Device(twilioApiAccessToken, {
+          logLevel: 1,
+          // Set Opus as our preferred codec. Opus generally performs better, requiring less bandwidth and
+          // providing better audio quality in restrained network conditions.
+          codecPreferences: ["opus", "pcmu"]
+        });
 
-      log(token)
-      device = new Twilio.Device(token, {
-        logLevel: 1,
-        // Set Opus as our preferred codec. Opus generally performs better, requiring less bandwidth and
-        // providing better audio quality in restrained network conditions.
-        codecPreferences: ["opus", "pcmu"]
-      });
+        log('adding device listeners')
+        addDeviceListeners(device);
 
-      log('adding device listeners')
-      addDeviceListeners(device);
-
-      // Device must be registered in order to receive incoming calls
-      device.register();
+        // Device must be registered in order to receive incoming calls
+        device.register();
+      } catch(err) {
+        console.log('Caught exception from device set up block')
+        console.error(err)
+        showLoginUi()
+      }
     }
 
     // SETUP STEP 4:
@@ -136,11 +167,12 @@ const TwilioNamespace = {
       device.on("registered", function () {
         log("Twilio.Device Ready to make and receive calls!");
         callControlsDiv.classList.remove("hide");
-        phoneNumberInput.value = window.__twilioTargetPhoneNumber;
+        // phoneNumberInput.value = window.__twilioTargetPhoneNumber;
       });
 
       device.on("error", function (error) {
         log("Twilio.Device Error: " + error.message);
+        refreshTwilioApiAccessToken()
       });
 
       device.on("incoming", handleIncomingCall);
@@ -458,7 +490,7 @@ const TwilioNamespace = {
           }
         });
 
-        var option = document.createElement("option");
+        let option = document.createElement("option");
         option.label = device.label;
         option.setAttribute("data-id", id);
         if (isActive) {
