@@ -13,3 +13,13 @@ function deleteLastDigit() {
   var phoneNumberInput = document.getElementById("phone-number");
   phoneNumberInput.value = phoneNumberInput.value.slice(0, -1);
 }
+
+function dialerPreLoading() {
+  $callButton.prop('disabled', true)
+  $callButton.addClass('disabled-cursor')
+}
+
+function dialerLoaded() {
+  $callButton.prop('disabled', false)
+  $callButton.removeClass('disabled-cursor')
+}

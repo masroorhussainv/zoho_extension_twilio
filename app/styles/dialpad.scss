@@ -83,6 +83,10 @@
         background-color: $dark-primary;
       }
 
+      .call:disabled {
+        background-color: $secondary-text;
+      }
+
       .clear {
         background-color: $accent-two;
 
@@ -121,13 +125,48 @@
     }
 
     .call-duration {
+      color: $dark-primary;
+    }
+  }
+}
+
+#after-call-ui {
+  padding: 2em 0 2em 0;
+
+  .info {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    color: $primary-text;
+
+    .phone-number {
       font-size: 1.5em;
       padding: 0.5em;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: center;
-      color: $dark-primary;
+      text-align: center;
+      gap: 10px;
+
+      color: $secondary-text;
     }
+
+    .call-duration {
+      color: $accent-two;
+    }
+  }
+}
+
+#active-call-ui, #after-call-ui {
+  .call-duration {
+    font-size: 1.5em;
+    padding: 0.5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
 
   .controls {

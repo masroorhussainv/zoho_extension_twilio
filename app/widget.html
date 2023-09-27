@@ -13,6 +13,8 @@
   <script src="./js/main.js"></script>
   <script src="./js/login.js"></script>
   <script src="./js/dialpad.js"></script>
+  <script src="./js/call_ui.js"></script>
+
   <!--  <script src="./js/collapsible.js"></script>-->
 
   <script>
@@ -108,7 +110,7 @@
           <div class="info">
             <div class="phone-number">
               <span id="calling-text">Calling</span>
-              <span class="call-phone-number">Phone Number</span>
+              <span class="calling-phone-number">Phone Number Here</span>
             </div>
             <div class="call-duration">
               <span id="call-elapsed-duration">00:00:00</span>
@@ -116,7 +118,23 @@
           </div>
           <div class="controls">
             <button id="mute-button">Mute</button>
-            <button class="control-button end-call">End</button>
+            <button id="button-hangup-outgoing" class="control-button end-call">End</button>
+            <!-- <button class="control-button">Speaker</button> -->
+          </div>
+        </div>
+
+        <div id="after-call-ui" class="hide">
+          <div class="info">
+            <div class="phone-number">
+              <span id="called-ended-text">Call Ended</span>
+              <span class="called-phone-number">Phone Number Here</span>
+            </div>
+            <div class="call-duration">
+              <span id="call-duration-total">00:00:00</span>
+            </div>
+          </div>
+          <div class="controls">
+            <button class="control-button" id="back-to-dialer">Back</button>
             <!-- <button class="control-button">Speaker</button> -->
           </div>
         </div>

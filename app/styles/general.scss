@@ -15,6 +15,10 @@ p {
   align-items: center;
 }
 
+.disabled-cursor {
+  cursor: not-allowed !important;
+}
+
 #spinner-wrapper {
   display: flex;
   justify-content: center;

@@ -1,57 +1,68 @@
+const speakerDevices = document.getElementById("speaker-devices");
+const ringtoneDevices = document.getElementById("ringtone-devices");
+const outputVolumeBar = document.getElementById("output-volume");
+const inputVolumeBar = document.getElementById("input-volume");
+const volumeIndicators = document.getElementById("volume-indicators");
+const $callButton = $("#button-call");
+const outgoingCallHangupButton = document.getElementById("button-hangup-outgoing");
+const callControlsDiv = document.getElementById("call-controls");
+const audioSelectionDiv = document.getElementById("output-selection");
+const getAudioDevicesButton = document.getElementById("get-devices");
+const logDiv = document.getElementById("log");
+const incomingCallDiv = document.getElementById("incoming-call");
+
+let elapsedSeconds = 0;
+let callStartTime;
+let callEndTime;
+let callInterval;
+let isMicMuted = false; // Track the microphone mute state
+let activeConnection; // Store the active connection
+
+dialerPreLoading()
+
+const incomingCallHangupButton = document.getElementById(
+  "button-hangup-incoming"
+);
+const incomingCallAcceptButton = document.getElementById(
+  "button-accept-incoming"
+);
+const incomingCallRejectButton = document.getElementById(
+  "button-reject-incoming"
+);
+const $phoneNumberInput = $("#phone-number");
+const $incomingPhoneNumberEl = $("#incoming-number");
+
 const TwilioNamespace = {
   setUpTwilio: function (config_data={}) {
-    const speakerDevices = document.getElementById("speaker-devices");
-    const ringtoneDevices = document.getElementById("ringtone-devices");
-    const outputVolumeBar = document.getElementById("output-volume");
-    const inputVolumeBar = document.getElementById("input-volume");
-    const volumeIndicators = document.getElementById("volume-indicators");
-    const callButton = document.getElementById("button-call");
-    const outgoingCallHangupButton = document.getElementById("button-hangup-outgoing");
-    const callControlsDiv = document.getElementById("call-controls");
-    const audioSelectionDiv = document.getElementById("output-selection");
-    const getAudioDevicesButton = document.getElementById("get-devices");
-    const logDiv = document.getElementById("log");
-    const incomingCallDiv = document.getElementById("incoming-call");
 
-    let callStartTime;
-    let callEndTime;
-    let callInterval;
-    let isMicMuted = false; // Track the microphone mute state
-    let activeConnection; // Store the active connection
+    attachCallUiListeners();
 
-    const incomingCallHangupButton = document.getElementById(
-      "button-hangup-incoming"
-    );
-    const incomingCallAcceptButton = document.getElementById(
-      "button-accept-incoming"
-    );
-    const incomingCallRejectButton = document.getElementById(
-      "button-reject-incoming"
-    );
-    const phoneNumberInput = document.getElementById("phone-number");
-    const incomingPhoneNumberEl = document.getElementById("incoming-number");
+    $phoneNumberInput.val('+923000855440')
     // const startupButton = document.getElementById("startup-button");
 
     let device;
     let twilioApiAccessToken;
     let twilioApiIdentity;
 
-
     // Event Listeners
 
-    callButton.onclick = (e) => {
-      e.preventDefault();
-      const phoneNumber = phoneNumberInput.value
-      if(!['', null, undefined].includes(phoneNumber)) {
-        console.log('making call to: ', phoneNumber);
-        // makeOutgoingCall();
-        setTimeout(() => {
-          console.log('call accept event emitted');
-          handleAcceptedOutgoingCall()
-        }, 0)
+    $callButton.on('click', (e) => {
+        // Call button click
+        e.preventDefault();
+        const phoneNumber = $phoneNumberInput.val();
+        if(!['', null, undefined].includes(phoneNumber)) {
+          console.log('making call to: ', phoneNumber);
+          // makeOutgoingCall();
 
+          setTimeout(() => {
+          //   Todo: remove this forced-call
+          //    and uncomment the above call to makeOutgoingCall
+            console.log('call accept event emitted');
+            handleAcceptedOutgoingCall()
+          }, 0)
+        }
       }
-    };
+    )
     getAudioDevicesButton.onclick = getAudioDevices;
     speakerDevices.addEventListener("change", updateOutputDevice);
     ringtoneDevices.addEventListener("change", updateRingtoneDevice);
@@ -166,8 +177,9 @@ const TwilioNamespace = {
     function addDeviceListeners(device) {
       device.on("registered", function () {
         log("Twilio.Device Ready to make and receive calls!");
+        dialerLoaded();
         callControlsDiv.classList.remove("hide");
-        // phoneNumberInput.value = window.__twilioTargetPhoneNumber;
+        // $phoneNumberInput.val(window.__twilioTargetPhoneNumber);
       });
 
       device.on("error", function (error) {
@@ -183,22 +195,6 @@ const TwilioNamespace = {
       if (device.audio.isOutputSelectionSupported) {
         audioSelectionDiv.classList.remove("hide");
       }
-    }
-
-    function updateCallDuration() {
-      if (callStartTime) {
-        const currentTime = new Date();
-        const elapsedSeconds = Math.round((currentTime - callStartTime) / 1000);
-        console.log(`Call duration: ${elapsedSeconds} seconds`);
-        // Update UI with the elapsedSeconds value
-        callDuration = document.getElementById('call-elapsed-duration')
-        callDuration.innerText = formatDuration(elapsedSeconds);
-      }
-    }
-
-    function startCallTimeTracking() {
-      callStartTime = new Date();
-      callInterval = setInterval(updateCallDuration, 1000);
     }
 
     // Function to toggle microphone mute state
@@ -223,36 +219,6 @@ const TwilioNamespace = {
       }
     }
 
-    function stopCallTimeTracking() {
-      callEndTime = new Date();
-
-      if (callInterval) {
-        clearInterval(callInterval);
-        callInterval = null; // Reset the interval variable
-        callDuration = document.getElementById('call-elapsed-duration')
-        callDuration.innerText = '00:00:00';
-      }
-
-      if (callStartTime) {
-        const callDuration = (callEndTime - callStartTime) / 1000; // Convert to seconds
-        console.log(`Call ended. Duration: ${callDuration} seconds`);
-      } else {
-        console.log('Call ended.');
-      }
-    }
-
-    function formatDuration(seconds) {
-      const hours = Math.floor(seconds / 3600);
-      const minutes = Math.floor((seconds % 3600) / 60);
-      const remainingSeconds = seconds % 60;
-
-      const formattedHours = hours < 10 ? `0${hours}` : hours;
-      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-      const formattedSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
-
-      return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-    }
-
     function handleAcceptedOutgoingCall() {
       startCallTimeTracking()
       updateUIAcceptedOutgoingCall()
@@ -260,21 +226,23 @@ const TwilioNamespace = {
       const muteButton = document.getElementById("mute-button");
       muteButton.addEventListener("click", toggleMicMute);
 
+      // Todo: remove this forced-call
       setTimeout(()=>{
         handleDisconnectedOutgoingCall()
-      }, 8000)
+      }, 3000)
     }
 
     function handleDisconnectedOutgoingCall() {
       stopCallTimeTracking()
       updateUIDisconnectedOutgoingCall()
+      elapsedSeconds = 0;
     }
 
     // MAKE AN OUTGOING CALL
     async function makeOutgoingCall() {
       var params = {
         // get the phone number to call from the DOM
-        To: phoneNumberInput.value,
+        To: $phoneNumberInput.val(),
       };
 
       if (device) {
@@ -299,29 +267,10 @@ const TwilioNamespace = {
       }
     }
 
-    function switchFromDialpadUiToCallUi() {
-      // startCallTimeTracking()
-      callButton.disabled = true;
-      dialpadUi = document.getElementById('dialpad-ui')
-      dialpadUi.classList.add('hide')
-      callUi = document.getElementById('active-call-ui')
-      callUi.classList.remove('hide')
-      // outgoingCallHangupButton.classList.add("hide");
-    }
-
-    function switchFromCallUiToDialpadUi() {
-      // stopCallTimeTracking()
-      callButton.disabled = false;
-      dialpadUi = document.getElementById('dialpad-ui')
-      dialpadUi.classList.remove('hide')
-      callUi = document.getElementById('active-call-ui')
-      callUi.classList.add('hide')
-    }
-
     function updateUIAcceptedOutgoingCall(call) {
       log("Call in progress ...");
       // hide the dialpad ui
-      switchFromDialpadUiToCallUi()
+      switchFromDialerUiToCallUi()
 
       // outgoingCallHangupButton.classList.remove("hide");
       // volumeIndicators.classList.remove("hide");
@@ -330,7 +279,8 @@ const TwilioNamespace = {
 
     function updateUIDisconnectedOutgoingCall() {
       log("Call disconnected.");
-      switchFromCallUiToDialpadUi()
+      switchFromCallUiToAfterCallUi();
+      // switchFromAfterCallUiToDialpadUi()
 
       // outgoingCallHangupButton.classList.add("hide");
       // volumeIndicators.classList.add("hide");
@@ -343,7 +293,7 @@ const TwilioNamespace = {
 
       //show incoming call div and incoming phone number
       incomingCallDiv.classList.remove("hide");
-      incomingPhoneNumberEl.innerHTML = call.parameters.From;
+      $incomingPhoneNumberEl.html(call.parameters.From);
 
       //add event listeners for Accept, Reject, and Hangup buttons
       incomingCallAcceptButton.onclick = () => {
@@ -416,7 +366,7 @@ const TwilioNamespace = {
     }
 
     function resetIncomingCallUI() {
-      incomingPhoneNumberEl.innerHTML = "";
+      $incomingPhoneNumberEl.html('');
       incomingCallAcceptButton.classList.remove("hide");
       incomingCallRejectButton.classList.remove("hide");
       incomingCallHangupButton.classList.add("hide");

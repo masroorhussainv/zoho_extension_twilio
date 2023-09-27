@@ -15,6 +15,9 @@ p {
   justify-content: center;
   align-items: center; }
 
+.disabled-cursor {
+  cursor: not-allowed !important; }
+
 #spinner-wrapper {
   display: flex;
   justify-content: center;
@@ -227,6 +230,8 @@ button:disabled {
     #dialpad-ui .dialpad .row .call {
       width: 100% !important;
       background-color: #388E3C; }
+    #dialpad-ui .dialpad .row .call:disabled {
+      background-color: #757575; }
     #dialpad-ui .dialpad .row .clear {
       background-color: #D32F2F; }
       #dialpad-ui .dialpad .row .clear:hover {
@@ -252,30 +257,54 @@ button:disabled {
       gap: 10px;
       color: #757575; }
     #active-call-ui .info .call-duration {
+      color: #388E3C; }
+
+#after-call-ui {
+  padding: 2em 0 2em 0; }
+  #after-call-ui .info {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    color: #212121; }
+    #after-call-ui .info .phone-number {
       font-size: 1.5em;
       padding: 0.5em;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: center;
-      color: #388E3C; }
-  #active-call-ui .controls {
+      text-align: center;
+      gap: 10px;
+      color: #757575; }
+    #after-call-ui .info .call-duration {
+      color: #D32F2F; }
+
+#active-call-ui .call-duration, #after-call-ui .call-duration {
+  font-size: 1.5em;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
+#active-call-ui .controls, #after-call-ui .controls {
+  padding: 0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  flex-wrap: wrap; }
+  #active-call-ui .controls button, #after-call-ui .controls button {
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    /* Adjusted from 50% to 10px for square style */
+    background-color: #D32F2F;
+    color: #FFFFFF;
+    font-size: 18px;
     padding: 0.5em;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-content: center;
-    flex-wrap: wrap; }
-    #active-call-ui .controls button {
-      height: 40px;
-      border: none;
-      border-radius: 10px;
-      /* Adjusted from 50% to 10px for square style */
-      background-color: #D32F2F;
-      color: #FFFFFF;
-      font-size: 18px;
-      padding: 0.5em;
-      cursor: pointer; }
-      #active-call-ui .controls button:hover {
-        background-color: #FF5252; }
+    cursor: pointer; }
+    #active-call-ui .controls button:hover, #after-call-ui .controls button:hover {
+      background-color: #FF5252; }
 
 /*# sourceMappingURL=main.css.map */
