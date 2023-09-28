@@ -8,7 +8,7 @@
       {
         "location": "top_band",
         "name": "Twilio Demo Widget",
-        "url": "/app/widget.html",
+        "url": "public/index.html",
         "logo": "/app/img/twilio.png"
       }
     ]
