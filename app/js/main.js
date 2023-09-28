@@ -63,6 +63,16 @@ function initializeWidget()
       });
 
   })
+
+  ZOHO.embeddedApp.on("DialerActive",function(){
+    console.log("Dialer Activated");
+  })
+
+  ZOHO.embeddedApp.on("Dial",function(data){
+    console.log("Number Dialed");
+    console.log('data', data);
+  })
+
   /*
    * initialize the widget.
    */
