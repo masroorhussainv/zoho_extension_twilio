@@ -11,6 +11,9 @@ const getAudioDevicesButton = document.getElementById("get-devices");
 const logDiv = document.getElementById("log");
 const incomingCallDiv = document.getElementById("incoming-call");
 
+const $phoneNumberInput = $("#phone-number");
+const $incomingPhoneNumberEl = $("#incoming-number");
+
 let elapsedSeconds = 0;
 let callStartTime;
 let callEndTime;
@@ -29,14 +32,14 @@ const incomingCallAcceptButton = document.getElementById(
 const incomingCallRejectButton = document.getElementById(
   "button-reject-incoming"
 );
-const $phoneNumberInput = $("#phone-number");
-const $incomingPhoneNumberEl = $("#incoming-number");
 
 const TwilioNamespace = {
   setUpTwilio: function (config_data={}) {
 
     attachCallUiListeners();
-
+    console.log('+92')
+    console.log('$phoneNumberInput', $phoneNumberInput)
+    console.log('+923000855440')
     $phoneNumberInput.val('+923000855440')
     // const startupButton = document.getElementById("startup-button");
 

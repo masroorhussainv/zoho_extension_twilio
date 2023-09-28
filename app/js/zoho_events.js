@@ -70,6 +70,13 @@ function initializeWidget()
 
   ZOHO.embeddedApp.on("Dial",function(data){
     console.log("Number Dialed");
+    // console.log(typeof(data))
+    // console.log(data.Number)
+    // console.log(data['Number'])
+    if(data.Number) {
+      console.log('Sending message to Iframe')
+      sendMessageToIframe(data.Number);
+    }
     console.log('data', data);
   })
 

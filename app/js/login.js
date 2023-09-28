@@ -6,7 +6,7 @@
 
 function initializeTwilioConfig(config_data={}) {
   console.log('setting up twilio now');
-    console.log(config_data);
+    // console.log(config_data);
     TwilioNamespace.setUpTwilio(config_data)
     console.log('twilio set up initiated');
   }
