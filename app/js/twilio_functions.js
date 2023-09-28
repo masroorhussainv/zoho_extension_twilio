@@ -34,14 +34,9 @@ const incomingCallRejectButton = document.getElementById(
 );
 
 const TwilioNamespace = {
-  setUpTwilio: function (config_data={}) {
+  setUpTwilio: function () {
 
     attachCallUiListeners();
-    console.log('+92')
-    console.log('$phoneNumberInput', $phoneNumberInput)
-    console.log('+923000855440')
-    $phoneNumberInput.val('+923000855440')
-    // const startupButton = document.getElementById("startup-button");
 
     let device;
     let twilioApiAccessToken;
@@ -74,7 +69,6 @@ const TwilioNamespace = {
     // SETUP STEP 1:
     // Browser client should be started after a user gesture
     // to avoid errors in the browser console re: AudioContext
-    // startupButton.addEventListener("click", startupClient);
     startupClient();
 
     function getTwilioAuthToken() {
@@ -127,7 +121,6 @@ const TwilioNamespace = {
       log("Requesting Access Token...");
 
       try {
-        // const data = await $.getJSON(`http://localhost:3000/twilio/auth_token?identity=${config_data['currentUserEmail']}`);
         twilioApiAccessToken = localStorage.getItem('_twilioApiAccessToken')
         twilioApiIdentity = localStorage.getItem('_twilioApiIdentity')
 

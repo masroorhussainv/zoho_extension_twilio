@@ -1,13 +1,5 @@
 function initializeWidget()
 {
-
-  // function initializeTwilioConfig(config_data={}) {
-  //   console.log('going to set up twilio now');
-  //   console.log(config_data);
-  //   TwilioNamespace.setUpTwilio(config_data)
-  //   console.log('twilio set up initiated');
-  // }
-
   // Todo start
   // remove when extension is ready
   // if(window.location.host.includes('127.0.0.1')) {
@@ -74,10 +66,15 @@ function initializeWidget()
     // console.log(data.Number)
     // console.log(data['Number'])
     if(data.Number) {
-      console.log('Sending message to Iframe')
-      sendMessageToIframe(data.Number);
+      console.log('---------------')
+      console.log('data.Number', data.Number)
+      let $phoneNumberField = $("#phone-number");
+      console.log($phoneNumberField)
+      $phoneNumberField.val(data.Number)
+      console.log($phoneNumberField.val())
     }
-    console.log('data', data);
+    // console.log('data', data);
+    console.log('---------------')
   })
 
   /*

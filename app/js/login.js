@@ -4,12 +4,12 @@
 //   validateTokenEndpoint: '/api/twilio_users/validate_token'
 // }
 
-function initializeTwilioConfig(config_data={}) {
+function initializeTwilioConfig() {
   console.log('setting up twilio now');
-    // console.log(config_data);
-    TwilioNamespace.setUpTwilio(config_data)
-    console.log('twilio set up initiated');
-  }
+  // console.log(config_data);
+  TwilioNamespace.setUpTwilio()
+  console.log('twilio set up initiated');
+}
 
 function showPostLoginUi() {
   $('#login-container').hide()
