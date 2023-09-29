@@ -46,7 +46,7 @@
         height: 40px;
         border: none;
         border-radius: 10px; /* Adjusted from 50% to 10px for square style */
-        background-color: $dark-primary;
+        background-color: $primary-dark;
         color: $text;
         font-size: 24px;
         display: flex;
@@ -80,7 +80,7 @@
 
       .call {
         width: 100% !important;
-        background-color: $dark-primary;
+        background-color: $primary-dark;
       }
 
       .call:disabled {
@@ -88,107 +88,11 @@
       }
 
       .clear {
-        background-color: $accent-two;
+        background-color: $accent-dark;
 
         &:hover {
-          background-color: $accent-one;
+          background-color: $accent;
         }
-      }
-    }
-  }
-}
-
-#active-call-ui {
-  padding: 2em 0 2em 0;
-
-  .info {
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-    color: $primary-text;
-
-    .phone-number {
-      font-size: 1.5em;
-      padding: 0.5em;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      gap: 10px;
-
-      // #calling-text {
-        color: $secondary-text;
-      // }
-    }
-
-    .call-duration {
-      color: $dark-primary;
-    }
-  }
-}
-
-#after-call-ui {
-  padding: 2em 0 2em 0;
-
-  .info {
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-    color: $primary-text;
-
-    .phone-number {
-      font-size: 1.5em;
-      padding: 0.5em;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      gap: 10px;
-
-      color: $secondary-text;
-    }
-
-    .call-duration {
-      color: $accent-two;
-    }
-  }
-}
-
-#active-call-ui, #after-call-ui {
-  .call-duration {
-    font-size: 1.5em;
-    padding: 0.5em;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-
-  .controls {
-    padding: 0.5em;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-content: center;
-    flex-wrap: wrap;
-
-    button {
-      height: 40px;
-      border: none;
-      border-radius: 10px; /* Adjusted from 50% to 10px for square style */
-      background-color: $accent-two;
-      color: $text;
-      font-size: 18px;
-      padding: 0.5em;
-      cursor: pointer;
-
-      &:hover {
-        background-color: $accent-one;
       }
     }
   }

@@ -25,7 +25,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Twilio Voice JavaScript SDK Quickstart</title>
+  <title>Twilio Call Extension</title>
   <link rel="stylesheet" href="app/css/main.css" />
 </head>
 
@@ -66,7 +66,7 @@
 
       <div id="tabs-1" class="tab">
 
-        <div id="dialpad-ui">
+        <div id="dialpad-ui" class="">
           <div class="input-container">
             <input type="text" id="phone-number" class="styled-input" placeholder="" readonly>
             <span id="deleteButton" class="delete-button" onclick="deleteLastDigit()">&#x2715;</span>
@@ -104,6 +104,20 @@
           </div>
         </div>
 
+        <div id="incoming-call-ui" class="hide">
+          <!-- <h2>Incoming Call Controls</h2> -->
+          <div class="info">
+            <div class="phone-number">
+              <span id="incoming-calling-text">Incoming Call</span>
+              <span class="calling-phone-number">Phone Number Here</span>
+            </div>
+          </div>
+          <div class="controls">
+            <button id="button-accept-incoming" class="btn-lg btn-primary">Accept</button>
+            <button id="button-reject-incoming" class="btn-lg btn-accent">Reject</button>
+            <!-- <button class="control-button">Speaker</button> -->
+          </div>
+        </div>
 
         <div id="active-call-ui" class="hide">
           <div class="info">
@@ -111,13 +125,13 @@
               <span id="calling-text">Calling</span>
               <span class="calling-phone-number">Phone Number Here</span>
             </div>
-            <div class="call-duration">
+            <div class="call-duration hide">
               <span id="call-elapsed-duration">00:00:00</span>
             </div>
           </div>
           <div class="controls">
-            <button id="mute-button">Mute</button>
-            <button id="button-hangup-outgoing" class="control-button end-call">End</button>
+            <button id="mute-button" class="btn-lg btn-accent">Mute</button>
+            <button id="button-hangup-outgoing" class="control-button end-call btn-lg btn-accent">End</button>
             <!-- <button class="control-button">Speaker</button> -->
           </div>
         </div>
@@ -133,7 +147,7 @@
             </div>
           </div>
           <div class="controls">
-            <button class="control-button" id="back-to-dialer">Back</button>
+            <button class="control-button btn-lg btn-accent back-to-dialer-btn">Back</button>
             <!-- <button class="control-button">Speaker</button> -->
           </div>
         </div>
@@ -151,15 +165,15 @@
             <!-- <button id="button-hangup-outgoing" class="hide">Hang Up</button> -->
           <!-- </form> -->
 
-          <div id="incoming-call" class="hide">
-            <!-- <h2>Incoming Call Controls</h2> -->
-            <p class="instructions">
-              Incoming Call from <span id="incoming-number"></span>
-            </p>
-            <button id="button-accept-incoming">Accept</button>
-            <button id="button-reject-incoming">Reject</button>
-          </div>
-          <button id="button-hangup-incoming" class="hide">Hangup</button>
+<!--          <div id="incoming-call" class="hide">-->
+<!--            &lt;!&ndash; <h2>Incoming Call Controls</h2> &ndash;&gt;-->
+<!--            <p class="instructions">-->
+<!--              Incoming Call from <span id="incoming-number"></span>-->
+<!--            </p>-->
+<!--            <button id="button-accept-incoming">Accept</button>-->
+<!--            <button id="button-reject-incoming">Reject</button>-->
+<!--          </div>-->
+<!--          <button id="button-hangup-incoming" class="hide">Hangup</button>-->
           <!-- <div id="volume-indicators" class="hide">
             <label>Mic Volume</label>
             <div id="input-volume"></div>
@@ -191,8 +205,13 @@
   <script src="app/js/call_ui.js"></script>
   <script src="app/js/iframe_communication.js"></script>
   <script src="app/js/twilio_functions.js"></script>
-<!--  <script type="text/javascript" src="/js/twilio.min.js"></script>-->
+
+  <!--  For root index-->
   <script type="text/javascript" src="./public/js/twilio.min.js"></script>
+
+  <!-- For app/index.html -->
+<!--  <script type="text/javascript" src="app/js/twilio.min.js"></script>-->
+
   <script src="app/js/zoho_events.js"></script>
 
   <!--  twilio quickstart end -->

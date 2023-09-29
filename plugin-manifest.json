@@ -9,7 +9,7 @@
         "location": "top_band",
         "name": "Twilio Demo Widget",
         "url": "index.html",
-        "logo": "/app/img/twilio.png"
+        "logo": "app/img/twilio.png"
       }
     ]
   },

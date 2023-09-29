@@ -12,6 +12,8 @@ const logDiv = document.getElementById("log");
 const incomingCallDiv = document.getElementById("incoming-call");
 
 const $phoneNumberInput = $("#phone-number");
+let outgoingPhoneNumber = null;
+let incomingPhoneNumber = null;
 const $incomingPhoneNumberEl = $("#incoming-number");
 
 let elapsedSeconds = 0;
@@ -26,15 +28,23 @@ dialerPreLoading()
 const incomingCallHangupButton = document.getElementById(
   "button-hangup-incoming"
 );
-const incomingCallAcceptButton = document.getElementById(
-  "button-accept-incoming"
-);
+const incomingCallAcceptButton = $('#button-accept-incoming')
 const incomingCallRejectButton = document.getElementById(
   "button-reject-incoming"
 );
 
+// Activity log
+function log(message) {
+  console.log(message)
+  // logDiv.innerHTML += `<p class="log-entry">&gt;&nbsp; ${message} </p>`;
+  // logDiv.scrollTop = logDiv.scrollHeight;
+}
+
 const TwilioNamespace = {
   setUpTwilio: function () {
+
+    // Todo: remove this hardcoded phone number
+    $phoneNumberInput.val('+923000855440')
 
     attachCallUiListeners();
 
@@ -133,7 +143,7 @@ const TwilioNamespace = {
         }
 
         setClientNameUI(twilioApiIdentity);
-        intitializeDevice();
+        initializeDevice();
 
       } catch (err) {
         log(err);
@@ -144,7 +154,7 @@ const TwilioNamespace = {
 
     // SETUP STEP 3:
     // Instantiate a new Twilio.Device
-    function intitializeDevice() {
+    function initializeDevice() {
       // logDiv.classList.remove("hide");
       log("Initializing device");
       log(twilioApiAccessToken)
@@ -216,6 +226,7 @@ const TwilioNamespace = {
     }
 
     function handleAcceptedOutgoingCall() {
+      outgoingPhoneNumber = $phoneNumberInput.val()
       startCallTimeTracking()
       updateUIAcceptedOutgoingCall()
 
@@ -229,9 +240,10 @@ const TwilioNamespace = {
     }
 
     function handleDisconnectedOutgoingCall() {
-      stopCallTimeTracking()
-      updateUIDisconnectedOutgoingCall()
+      stopCallTimeTracking();
+      updateUIDisconnectedOutgoingCall();
       elapsedSeconds = 0;
+      outgoingPhoneNumber = null;
     }
 
     // MAKE AN OUTGOING CALL
@@ -263,46 +275,29 @@ const TwilioNamespace = {
       }
     }
 
-    function updateUIAcceptedOutgoingCall(call) {
-      log("Call in progress ...");
-      // hide the dialpad ui
-      switchFromDialerUiToCallUi()
-
-      // outgoingCallHangupButton.classList.remove("hide");
-      // volumeIndicators.classList.remove("hide");
-      // bindVolumeIndicators(call);
-    }
-
-    function updateUIDisconnectedOutgoingCall() {
-      log("Call disconnected.");
-      switchFromCallUiToAfterCallUi();
-      // switchFromAfterCallUiToDialpadUi()
-
-      // outgoingCallHangupButton.classList.add("hide");
-      // volumeIndicators.classList.add("hide");
-    }
-
     // HANDLE INCOMING CALL
 
     function handleIncomingCall(call) {
       log(`Incoming call from ${call.parameters.From}`);
+      incomingPhoneNumber = call.parameters.From;
+      updateUIAcceptedIncomingCall();
 
       //show incoming call div and incoming phone number
-      incomingCallDiv.classList.remove("hide");
-      $incomingPhoneNumberEl.html(call.parameters.From);
+      // incomingCallDiv.classList.remove("hide");
+      // $incomingPhoneNumberEl.html(call.parameters.From);
 
       //add event listeners for Accept, Reject, and Hangup buttons
-      incomingCallAcceptButton.onclick = () => {
+      incomingCallAcceptButton.on('click', () => {
         acceptIncomingCall(call);
-      };
+      })
 
-      incomingCallRejectButton.onclick = () => {
+      incomingCallRejectButton.on('click', () => {
         rejectIncomingCall(call);
-      };
+      })
 
-      incomingCallHangupButton.onclick = () => {
+      incomingCallHangupButton.on('click', () => {
         hangupIncomingCall(call);
-      };
+      })
 
       // add event listener to call object
       call.on("cancel", handleDisconnectedIncomingCall);
@@ -317,7 +312,7 @@ const TwilioNamespace = {
 
       //update UI
       log("Accepted incoming call.");
-      incomingCallAcceptButton.classList.add("hide");
+      incomingCallAcceptButton.addClass("hide");
       incomingCallRejectButton.classList.add("hide");
       incomingCallHangupButton.classList.remove("hide");
     }
@@ -346,13 +341,6 @@ const TwilioNamespace = {
     }
 
     // MISC USER INTERFACE
-
-    // Activity log
-    function log(message) {
-      console.log(message)
-      // logDiv.innerHTML += `<p class="log-entry">&gt;&nbsp; ${message} </p>`;
-      // logDiv.scrollTop = logDiv.scrollHeight;
-    }
 
     function setClientNameUI(clientName) {
       var div = document.getElementById("client-name");

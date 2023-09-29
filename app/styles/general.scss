@@ -57,3 +57,38 @@ p {
 button:disabled {
   cursor: not-allowed;
 }
+
+.btn-lg {
+  height: 40px;
+  max-height: 40px;
+  width: 90px;
+  max-width: 90px;
+  overflow: clip;
+  border: none;
+  border-radius: 10px; /* Adjusted from 50% to 10px for square style */
+  color: $text;
+  font-size: 18px;
+  padding: 0.5em 1rem;
+  cursor: pointer;
+
+  // for ellipsis
+  white-space: nowrap; /* Prevents the text from wrapping onto the next line */
+  overflow: hidden; /* Hides the text that overflows the element's box */
+  text-overflow: ellipsis; /* Adds an ellipsis to the end of the text */
+}
+
+.btn-primary {
+  background-color: $primary-dark;
+
+  &:hover {
+    background-color: $primary;
+  }
+}
+
+.btn-accent {
+  background-color: $accent-dark;
+
+  &:hover {
+    background-color: $accent;
+  }
+}
