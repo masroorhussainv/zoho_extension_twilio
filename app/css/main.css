@@ -114,11 +114,9 @@ button:disabled {
     background-color: #388E3C;
     border-bottom: 4px solid orange; }
   #widget-wrapper .dialpad-tab {
-    width: 30% !important; }
-  #widget-wrapper .call-controls-tab {
-    width: 40% !important; }
+    width: 50% !important; }
   #widget-wrapper .settings-tab {
-    width: 30% !important; }
+    width: 50% !important; }
   #widget-wrapper .left-bordered {
     border-left: 1px solid #BDBDBD; }
   #widget-wrapper .tab {

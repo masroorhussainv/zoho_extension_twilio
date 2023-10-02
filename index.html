@@ -26,7 +26,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Twilio Call Extension</title>
+<!--   For root index.html -->
+<!--  <link rel="stylesheet" href="css/main.css" />-->
+
+<!--  For app/index.html -->
   <link rel="stylesheet" href="app/css/main.css" />
+
 </head>
 
 <body>
@@ -60,13 +65,13 @@
     <div id="tabs">
       <ul class="selectable-tabs">
         <li class="dialpad-tab"><a class="selectable-tab" href="#tabs-1">Dialpad</a></li>
-        <li class="call-controls-tab"><a class="selectable-tab" href="#tabs-2">Call Controls</a></li>
+<!--        <li class="call-controls-tab"><a class="selectable-tab" href="#tabs-2">Call Controls</a></li>-->
         <li class="settings-tab"><a class="selectable-tab" href="#tabs-3">Settings</a></li>
       </ul>
 
       <div id="tabs-1" class="tab">
 
-        <div id="dialpad-ui" class="">
+        <div id="dialpad-ui" class="hide">
           <div class="input-container">
             <input type="text" id="phone-number" class="styled-input" placeholder="" readonly>
             <span id="deleteButton" class="delete-button" onclick="deleteLastDigit()">&#x2715;</span>
@@ -104,12 +109,12 @@
           </div>
         </div>
 
-        <div id="incoming-call-ui" class="hide">
+        <div id="incoming-call-ui" class="">
           <!-- <h2>Incoming Call Controls</h2> -->
           <div class="info">
             <div class="phone-number">
               <span id="incoming-calling-text">Incoming Call</span>
-              <span class="calling-phone-number">Phone Number Here</span>
+              <span id="incoming-number" class="calling-phone-number">Phone Number Here</span>
             </div>
           </div>
           <div class="controls">
@@ -119,11 +124,12 @@
           </div>
         </div>
 
+        <!-- UI for outgoing calls and connected incoming-call -->
         <div id="active-call-ui" class="hide">
           <div class="info">
             <div class="phone-number">
               <span id="calling-text">Calling</span>
-              <span class="calling-phone-number">Phone Number Here</span>
+              <span id="calling-phone-number" class="calling-phone-number">Phone Number Here</span>
             </div>
             <div class="call-duration hide">
               <span id="call-elapsed-duration">00:00:00</span>
@@ -131,7 +137,8 @@
           </div>
           <div class="controls">
             <button id="mute-button" class="btn-lg btn-accent">Mute</button>
-            <button id="button-hangup-outgoing" class="control-button end-call btn-lg btn-accent">End</button>
+            <button id="button-hangup-outgoing" class="control-button end-call btn-lg btn-accent hide">End</button>
+            <button id="button-hangup-incoming" class="control-button end-call btn-lg btn-accent hide">End</button>
             <!-- <button class="control-button">Speaker</button> -->
           </div>
         </div>
@@ -140,7 +147,7 @@
           <div class="info">
             <div class="phone-number">
               <span id="called-ended-text">Call Ended</span>
-              <span class="called-phone-number">Phone Number Here</span>
+              <span id="called-phone" class="called-phone-number">Phone Number Here</span>
             </div>
             <div class="call-duration">
               <span id="call-duration-total">00:00:00</span>
@@ -153,9 +160,9 @@
         </div>
       </div>
 
-      <div id="tabs-2" class="tab">
+<!--      <div id="tabs-2" class="tab">-->
         <!-- <h2>Make a Call</h2> -->
-        <div id="call-controls">
+<!--        <div id="call-controls">-->
           <!-- <form> -->
             <!-- <label for="phone-number"
             >Enter a phone number</label> -->
@@ -181,8 +188,8 @@
             <label>Speaker Volume</label>
             <div id="output-volume"></div>
           </div> -->
-        </div>
-      </div>
+<!--        </div>-->
+<!--      </div>-->
 
       <div id="tabs-3" class="tab">
         <!-- <h2>Your Device Info</h2> -->
@@ -199,20 +206,31 @@
   </div>
 
   <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+  <!--  For root index.html -->
   <script src="app/js/constants.js"></script>
   <script src="app/js/login.js"></script>
   <script src="app/js/dialer.js"></script>
   <script src="app/js/call_ui.js"></script>
   <script src="app/js/iframe_communication.js"></script>
   <script src="app/js/twilio_functions.js"></script>
+  <script src="app/js/zoho_events.js"></script>
 
   <!--  For root index-->
-  <script type="text/javascript" src="./public/js/twilio.min.js"></script>
+    <script type="text/javascript" src="./public/js/twilio.min.js"></script>
 
   <!-- For app/index.html -->
-<!--  <script type="text/javascript" src="app/js/twilio.min.js"></script>-->
+<!--  <script src="js/constants.js"></script>-->
+<!--  <script src="js/login.js"></script>-->
+<!--  <script src="js/dialer.js"></script>-->
+<!--  <script src="js/call_ui.js"></script>-->
+<!--  <script src="js/iframe_communication.js"></script>-->
+<!--  <script src="js/twilio_functions.js"></script>-->
+<!--  <script src="js/zoho_events.js"></script>-->
 
-  <script src="app/js/zoho_events.js"></script>
+  <!-- For app/index.html -->
+<!--  <script type="text/javascript" src="js/twilio.min.js"></script>-->
+
+
 
   <!--  twilio quickstart end -->
 
