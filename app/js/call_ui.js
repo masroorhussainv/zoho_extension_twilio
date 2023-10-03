@@ -15,10 +15,15 @@ function displayCallDurationAfterCall() {
   $('#call-duration-total').text(getFormattedElapsedCallTime());
 }
 
+function displayPhoneNumberAfterCall() {
+  let number = outgoingPhoneNumber || incomingPhoneNumber;
+  $('#called-phone').text(number);
+}
+
 function switchFromCallUiToAfterCallUi() {
   console.log('switching to after call ui');
   hideAllExcept('#after-call-ui');
-  displayOutgoingPhoneNumberAfterCall();
+  displayPhoneNumberAfterCall();
   displayCallDurationAfterCall();
   // $('.called-phone-number').text($phoneNumberInput.val())
   // $('#call-duration-total').text(getFormattedElapsedCallTime());
@@ -40,11 +45,8 @@ function displayIncomingPhoneNumber() {
 }
 
 function displayPhoneNumberDuringCall() {
-  $('#calling-phone-number').text(outgoingPhoneNumber);
-}
-
-function displayOutgoingPhoneNumberAfterCall() {
-  $('#called-phone').text(outgoingPhoneNumber);
+  let number = outgoingPhoneNumber || incomingPhoneNumber;
+  $('#calling-phone-number').text(number);
 }
 
 function displayElapsedCallTimeDuringActiveCall() {

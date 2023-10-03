@@ -156,7 +156,6 @@ const TwilioNamespace = {
     function initializeDevice() {
       // logDiv.classList.remove("hide");
       log("Initializing device");
-      log(twilioApiAccessToken)
       try {
         device = new Twilio.Device(twilioApiAccessToken, {
           logLevel: 1,
@@ -383,7 +382,6 @@ const TwilioNamespace = {
 
     function resetIncomingCallUI(trigger) {
       hideIncomingCallHangupButton();
-      incomingPhoneNumber = null;
 
       if(trigger === 'reject') {
         switchFromIncomingCallUiToDialerUi();
@@ -391,6 +389,8 @@ const TwilioNamespace = {
       else {
         switchFromCallUiToAfterCallUi();
       }
+
+      incomingPhoneNumber = null;
       // $incomingPhoneNumberEl.html('');
       // incomingCallAcceptButton.removeClass("hide");
       // incomingCallRejectButton.removeClass("hide");
