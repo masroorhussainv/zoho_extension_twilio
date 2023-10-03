@@ -53,7 +53,7 @@ First, compile the SASS assets if any, by running
 ```bash
 sass app/styles/main.scss app/css/main.css
 ```
-> For using SASS, you need to add the SASS as a dev dependency.
+> For using SASS, you need to add the SASS package as a dev dependency.
 
 Run the server
 ```bash
