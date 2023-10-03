@@ -5,10 +5,8 @@
 // }
 
 function initializeTwilioConfig() {
-  console.log('setting up twilio now');
-  // console.log(config_data);
-  TwilioNamespace.setUpTwilio()
   console.log('twilio set up initiated');
+  setUpTwilio()
 }
 
 function showPostLoginUi() {
