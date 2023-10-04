@@ -97,6 +97,11 @@ button:disabled {
     justify-content: flex-start;
     padding: 0;
     background-color: var(--text) !important; }
+  #widget-wrapper #tabs #identity {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding-top: 5px; }
   #widget-wrapper #tabs .selectable-tabs .selectable-tab {
     padding: 0.5em;
     width: 100%;

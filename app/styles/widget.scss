@@ -15,6 +15,15 @@
     background-color: var(--text) !important;
   }
 
+  #tabs {
+    #identity {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      padding-top: 5px;
+    }
+  }
+
   #tabs .selectable-tabs .selectable-tab {
     padding: 0.5em;
     width: 100%;

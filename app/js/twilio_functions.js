@@ -320,7 +320,7 @@ function setUpTwilio() {
 
     // add event listener to call object
     if(call.hasOwnProperty('on')) {
-      call.on("cancel", handleDisconnectedIncomingCall);
+      call.on("cancel", handleCancelledIncomingCall);
       call.on("disconnect", handleDisconnectedIncomingCall);
       call.on("reject", handleDisconnectedIncomingCall);
     }
@@ -330,14 +330,13 @@ function setUpTwilio() {
 
   function acceptIncomingCall(call) {
     call.accept();
+    log("Accepted incoming call.");
     incomingPhoneNumber = call.parameters.From;
 
     startCallTimeTracking();
-    log('call accepted')
     updateUIAcceptedIncomingCall()
 
     //update UI
-    log("Accepted incoming call.");
     incomingCallAcceptButton.addClass("hide");
     incomingCallRejectButton.addClass("hide");
     incomingCallHangupButton.removeClass("hide");
@@ -347,7 +346,6 @@ function setUpTwilio() {
 
   function rejectIncomingCall(call) {
     call.reject();
-    // stopCallTimeTracking();
     log("Rejected incoming call");
     resetIncomingCallUI('reject');
   }
@@ -377,6 +375,12 @@ function setUpTwilio() {
     // if(div) {
     //   div.innerHTML = `Your client name: <strong>${clientName}</strong>`;
     // }
+  }
+
+  function handleCancelledIncomingCall() {
+    hideIncomingCallHangupButton();
+    switchFromIncomingCallUiToDialerUi();
+    incomingPhoneNumber = null;
   }
 
   function resetIncomingCallUI(trigger) {

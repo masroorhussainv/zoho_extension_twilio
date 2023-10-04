@@ -9,11 +9,12 @@ function initializeTwilioConfig() {
   setUpTwilio()
 }
 
-function showPostLoginUi() {
-  $('#login-container').hide()
+function showPostLoginUi(identity) {
+  $('#login-container').hide();
+  $('#tabs #identity').text(identity);
   $('#tabs').show();
   console.log('going to set up twilio now');
-  initializeTwilioConfig()
+  initializeTwilioConfig();
 }
 
 function showLoginUi() {
@@ -61,7 +62,7 @@ function loginRequest(payload) {
     data: payload,
     success: function (response) {
       saveBackendAuthToken(response.token)
-      showPostLoginUi()
+      showPostLoginUi(response.identity)
     },
     error: function (xhr, status, error) {
       console.error(xhr, status, error);
@@ -77,7 +78,7 @@ function validateExtensionLoginToken(token) {
     dataType: 'json',
     success: function(response) {
       console.log('validation succeeded');
-      showPostLoginUi()
+      showPostLoginUi(response.identity);
     },
     error: function (xhr, status, error) {
       console.log('validation failed');
