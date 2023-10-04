@@ -29,8 +29,8 @@
 <!--   For root index.html -->
 <!--  <link rel="stylesheet" href="css/main.css" />-->
 
-<!--  For app/index.html -->
-  <link rel="stylesheet" href="css/main.css" />
+  <!-- NodeJs server should serve the static files from root like this: expressApp.use(express.static('.')); -->
+  <link rel="stylesheet" href="app/css/main.css" />
 
 </head>
 
@@ -71,7 +71,7 @@
 
       <div id="tabs-1" class="tab">
 
-        <div id="dialpad-ui" class="hide">
+        <div id="dialpad-ui" class="">
           <div class="input-container">
             <input type="text" id="phone-number" class="styled-input" placeholder="" readonly>
             <span id="deleteButton" class="delete-button" onclick="deleteLastDigit()">&#x2715;</span>
@@ -109,7 +109,7 @@
           </div>
         </div>
 
-        <div id="incoming-call-ui" class="">
+        <div id="incoming-call-ui" class="hide">
           <!-- <h2>Incoming Call Controls</h2> -->
           <div class="info">
             <div class="phone-number">
@@ -206,26 +206,25 @@
   </div>
 
   <!--  For root index.html -->
+  <!-- NodeJs server should serve the static files from root like this: expressApp.use(express.static('.')); -->
+  <script type="text/javascript" src="./public/js/twilio.min.js"></script>
   <script src="app/js/constants.js"></script>
   <script src="app/js/login.js"></script>
   <script src="app/js/dialer.js"></script>
   <script src="app/js/call_ui.js"></script>
   <script src="app/js/iframe_communication.js"></script>
   <script src="app/js/twilio_functions.js"></script>
-  <script src="app/js/zoho_events.js"></script>
-  <script type="text/javascript" src="./public/js/twilio.min.js"></script>
+  <script src="app/js/main.js"></script>
 
   <!-- For app/index.html -->
+<!--  <script type="text/javascript" src="app/js/twilio.min.js"></script>-->
 <!--  <script src="js/constants.js"></script>-->
 <!--  <script src="js/login.js"></script>-->
 <!--  <script src="js/dialer.js"></script>-->
 <!--  <script src="js/call_ui.js"></script>-->
 <!--  <script src="js/iframe_communication.js"></script>-->
 <!--  <script src="js/twilio_functions.js"></script>-->
-<!--  <script src="js/zoho_events.js"></script>-->
-<!--  <script type="text/javascript" src="js/twilio.min.js"></script>-->
-
-
+<!--  <script src="js/main.js"></script>-->
 
   <!--  twilio quickstart end -->
 

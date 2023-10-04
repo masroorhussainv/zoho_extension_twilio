@@ -252,9 +252,9 @@ function setUpTwilio() {
     muteButton.addEventListener("click", toggleMicMute);
 
     // Todo: remove this forced-call
-    setTimeout(()=>{
-      handleDisconnectedOutgoingCall()
-    }, 10000)
+    // setTimeout(()=>{
+    //   handleDisconnectedOutgoingCall()
+    // }, 10000)
   }
 
   function handleDisconnectedOutgoingCall() {
@@ -396,7 +396,6 @@ function setUpTwilio() {
     // incomingCallHangupButton.addClass("hide");
     // incomingCallDiv.classList.add("hide");
   }
-  switchFromCallUiToAfterCallUi();
 
   // AUDIO CONTROLS
 

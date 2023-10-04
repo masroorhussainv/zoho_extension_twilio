@@ -33,13 +33,17 @@ expressApp.get('/plugin-manifest.json', function (req, res) {
   res.sendfile('plugin-manifest.json');
 });
 
-expressApp.use('/app', express.static('app'));
-expressApp.use('/app', serveIndex('app'));
-expressApp.use(express.static('public')); // Todo: check if needed or not
+// expressApp.use('/', express.static('app')); // To serve app from index.html in the root directory of project
+// expressApp.use('/', serveIndex('app')); // To serve app from index.html in the root directory of project
 
+// expressApp.use('/app', express.static('app')); // Commented to serve app from index.html in the root directory of project
+// expressApp.use('/app', serveIndex('app')); // Commented to serve app from index.html in the root directory of project
+// expressApp.use(express.static('public'));
+
+expressApp.use(express.static('.')); // To serve app from index.html in the root directory of project
 
 expressApp.get('/', function (req, res) {
-  res.redirect('/app');
+  // res.redirect('/app'); // Commented to serve app from index.html in the root directory of project
 });
 
 var options = {

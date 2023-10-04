@@ -1,14 +1,5 @@
 function initializeWidget()
 {
-  // Todo start
-  // remove when extension is ready
-  // if(window.location.host.includes('127.0.0.1')) {
-  //   window.__currentUserEmail = 'localhost'
-  //   window.__twilioTargetPhoneNumber = "+12187520884"
-  //   initializeTwilioConfig({currentUserEmail: window.__currentUserEmail});
-  // }
-  // Todo end
-
   /*
    * Subscribe to the EmbeddedApp onPageLoad event before initializing the widget
    */
@@ -30,13 +21,6 @@ function initializeWidget()
         .then(function(response)
         {
           console.log('getRecord callback response', response);
-          // document.getElementById("recordInfo").innerHTML = JSON.stringify(response,null,2);
-          window.__twilioTargetPhoneNumber = '';
-          if(data.Entity == 'Contacts') {
-            window.__twilioTargetPhoneNumber = response.data?.[0]?.['Phone']?.replace(/[ ()-]/g,'');
-          }
-          document.getElementById('twilio-target-phone-number').innerHTML = window.__twilioTargetPhoneNumber
-          console.log('twilioTargetPhoneNumber', window.__twilioTargetPhoneNumber)
         });
     }
 
@@ -58,23 +42,24 @@ function initializeWidget()
 
   ZOHO.embeddedApp.on("DialerActive",function(){
     console.log("Dialer Activated");
-  })
+    console.log('Stored window.current_dialer_phone_number: ', window.crm_dialed_phone_number);
+    let $phoneNumberField = $("#phone-number");
+    $phoneNumberField.val(window.crm_dialed_phone_number);
+    window.crm_dialed_phone_number = null;
+  });
 
   ZOHO.embeddedApp.on("Dial",function(data){
     console.log("Number Dialed");
-    // console.log(typeof(data))
-    // console.log(data.Number)
-    // console.log(data['Number'])
     if(data.Number) {
-      console.log('---------------')
-      console.log('data.Number', data.Number)
+      console.log('---------------');
+      console.log('data.Number', data.Number);
       let $phoneNumberField = $("#phone-number");
-      console.log($phoneNumberField)
-      $phoneNumberField.val(data.Number)
-      console.log($phoneNumberField.val())
+      window.crm_dialed_phone_number = $phoneNumberField.val();
+      console.log($phoneNumberField);
+      $phoneNumberField.val(data.Number);
+      console.log($phoneNumberField.val());
+      console.log('---------------');
     }
-    // console.log('data', data);
-    console.log('---------------')
   })
 
   /*
