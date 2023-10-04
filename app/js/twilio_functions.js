@@ -1,35 +1,3 @@
-const speakerDevices = document.getElementById("speaker-devices");
-const ringtoneDevices = document.getElementById("ringtone-devices");
-const outputVolumeBar = document.getElementById("output-volume");
-const inputVolumeBar = document.getElementById("input-volume");
-const volumeIndicators = document.getElementById("volume-indicators");
-const $callButton = $("#button-call");
-const outgoingCallHangupButton = $("#button-hangup-outgoing");
-// const callControlsDiv = document.getElementById("call-controls");
-const audioSelectionDiv = document.getElementById("output-selection");
-const getAudioDevicesButton = document.getElementById("get-devices");
-const logDiv = document.getElementById("log");
-const incomingCallDiv = document.getElementById("incoming-call");
-
-const $phoneNumberInput = $("#phone-number");
-let outgoingPhoneNumber = null;
-let incomingPhoneNumber = null;
-const $incomingPhoneNumberEl = $("#incoming-number");
-
-let elapsedSeconds = 0;
-let callStartTime;
-let callEndTime;
-let callInterval;
-let callDurationTotal = 0;
-let isMicMuted = false; // Track the microphone mute state
-let activeConnection; // Store the active connection
-
-dialerPreLoading()
-
-const incomingCallHangupButton = $("#button-hangup-incoming");
-const incomingCallAcceptButton = $('#button-accept-incoming')
-const incomingCallRejectButton = $("#button-reject-incoming");
-
 // Activity log
 function log(message) {
   console.log(message)
@@ -263,6 +231,10 @@ function setUpTwilio() {
     outgoingPhoneNumber = null;
   }
 
+  function handleOutgoingCallRinging() {
+    console.log('outgoing call ringing');
+  }
+
   // MAKE AN OUTGOING CALL
   async function makeOutgoingCall() {
     var params = {
@@ -279,6 +251,7 @@ function setUpTwilio() {
 
       // add listeners to the Call
       // "accepted" means the call has finished connecting and the state is now "open"
+      call.on("ringing", handleOutgoingCallRinging)
       call.on("accept", handleAcceptedOutgoingCall);
       call.on("disconnect", handleDisconnectedOutgoingCall);
       call.on("cancel", handleDisconnectedOutgoingCall);
@@ -319,15 +292,14 @@ function setUpTwilio() {
     })
 
     // add event listener to call object
-    if(call.hasOwnProperty('on')) {
+    // if(call.hasOwnProperty('on')) {
       call.on("cancel", handleCancelledIncomingCall);
       call.on("disconnect", handleDisconnectedIncomingCall);
       call.on("reject", handleDisconnectedIncomingCall);
-    }
+    // }
   }
 
   // ACCEPT INCOMING CALL
-
   function acceptIncomingCall(call) {
     call.accept();
     log("Accepted incoming call.");
@@ -343,26 +315,23 @@ function setUpTwilio() {
   }
 
   // REJECT INCOMING CALL
-
   function rejectIncomingCall(call) {
     call.reject();
-    log("Rejected incoming call");
+    log("Incoming call rejected");
     resetIncomingCallUI('reject');
   }
 
   // HANG UP INCOMING CALL
-
   function hangupIncomingCall(call) {
     call.disconnect();
     stopCallTimeTracking();
-    log("Hanging up incoming call");
+    log("Incoming call hang up");
     resetIncomingCallUI('hangup');
   }
 
   // HANDLE CANCELLED INCOMING CALL
-
   function handleDisconnectedIncomingCall() {
-    log("Incoming call ended.");
+    log("Incoming call disconnected.");
     stopCallTimeTracking();
     resetIncomingCallUI('disconnect');
   }
@@ -378,6 +347,7 @@ function setUpTwilio() {
   }
 
   function handleCancelledIncomingCall() {
+    console.log('incoming call cancelled');
     hideIncomingCallHangupButton();
     switchFromIncomingCallUiToDialerUi();
     incomingPhoneNumber = null;

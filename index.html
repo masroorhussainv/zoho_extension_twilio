@@ -203,6 +203,9 @@
           <select id="speaker-devices" multiplex></select>
           <button id="get-devices">Seeing "Unknown" devices?</button>
         </div>
+        <div class="actions">
+          <button id="sign-out">Sign Out</button>
+        </div>
       </div>
     </div>
   </div>
@@ -210,23 +213,23 @@
   <!--  For root index.html -->
   <!-- NodeJs server should serve the static files from root like this: expressApp.use(express.static('.')); -->
   <script type="text/javascript" src="./public/js/twilio.min.js"></script>
-  <script src="app/js/constants.js"></script>
-  <script src="app/js/login.js"></script>
-  <script src="app/js/dialer.js"></script>
-  <script src="app/js/call_ui.js"></script>
-  <script src="app/js/iframe_communication.js"></script>
+  <script src="app/js/auth.js"></script> <!-- no direct JS calls -->
+  <script src="app/js/dialer.js"></script> <!-- no direct JS calls -->
+  <script src="app/js/call_ui.js"></script> <!-- no direct JS calls -->
+<!--  <script src="app/js/iframe_communication.js"></script>-->
   <script src="app/js/twilio_functions.js"></script>
-  <script src="app/js/main.js"></script>
+  <script src="app/js/zoho_events.js"></script> <!-- no direct JS calls -->
+  <script src="app/js/entrypoint.js"></script>
 
   <!-- For app/index.html -->
 <!--  <script type="text/javascript" src="app/js/twilio.min.js"></script>-->
 <!--  <script src="js/constants.js"></script>-->
-<!--  <script src="js/login.js"></script>-->
+<!--  <script src="js/auth.js"></script>-->
 <!--  <script src="js/dialer.js"></script>-->
 <!--  <script src="js/call_ui.js"></script>-->
 <!--  <script src="js/iframe_communication.js"></script>-->
 <!--  <script src="js/twilio_functions.js"></script>-->
-<!--  <script src="js/main.js"></script>-->
+<!--  <script src="js/zoho_events.js"></script>-->
 
   <!--  twilio quickstart end -->
 

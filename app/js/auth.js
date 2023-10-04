@@ -10,6 +10,10 @@ function initializeTwilioConfig() {
 }
 
 function showPostLoginUi(identity) {
+  dialerPreLoading();
+  attachSignOutListener();
+  displayDialer();
+  hideAllExcept('#dialpad-ui');
   $('#login-container').hide();
   $('#tabs #identity').text(identity);
   $('#tabs').show();
@@ -137,31 +141,37 @@ function submitLoginForm(e) {
   }
 }
 
-$(document).ready(function () {
-  $('#login-container button[type="submit"]').on('click', submitLoginForm);
-  checkLoggedInState();
+function attachSignOutListener() {
+  $('#tabs-3 #sign-out').on('click', function () {
+    showLoginUi();
+  })
+}
 
-  // // Apply jQuery UI styles to form elements
-  // $("#username, #password").addClass("ui-widget ui-widget-content ui-corner-all");
-  //
-  // // Initialize the form as a jQuery UI widget
-  // $("#login-form").dialog({
-  //   autoOpen: false,
-  //   modal: true,
-  //   buttons: {
-  //     "Login": function () {
-  //       // Handle form submission here
-  //       // You can add your login logic here
-  //       alert("Login clicked!");
-  //       // Close the dialog after processing
-  //       $(this).dialog("close");
-  //     },
-  //     "Cancel": function () {
-  //       $(this).dialog("close");
-  //     }
-  //   }
-  // });
-  //
-  // // Open the login form dialog when the page loads
-  // $("#login-form").dialog("open");
-});
+// $(document).ready(function () {
+//   $('#login-container button[type="submit"]').on('click', submitLoginForm);
+//   checkLoggedInState();
+//
+//   // // Apply jQuery UI styles to form elements
+//   // $("#username, #password").addClass("ui-widget ui-widget-content ui-corner-all");
+//   //
+//   // // Initialize the form as a jQuery UI widget
+//   // $("#login-form").dialog({
+//   //   autoOpen: false,
+//   //   modal: true,
+//   //   buttons: {
+//   //     "Login": function () {
+//   //       // Handle form submission here
+//   //       // You can add your login logic here
+//   //       alert("Login clicked!");
+//   //       // Close the dialog after processing
+//   //       $(this).dialog("close");
+//   //     },
+//   //     "Cancel": function () {
+//   //       $(this).dialog("close");
+//   //     }
+//   //   }
+//   // });
+//   //
+//   // // Open the login form dialog when the page loads
+//   // $("#login-form").dialog("open");
+// });

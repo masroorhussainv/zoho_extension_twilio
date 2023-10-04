@@ -311,4 +311,13 @@ button:disabled {
   align-content: center;
   flex-wrap: wrap; }
 
+#tabs #tabs-3 .actions {
+  margin-top: 10px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-content: center; }
+  #tabs #tabs-3 .actions .sign-out {
+    padding: 5px; }
+
 /*# sourceMappingURL=main.css.map */

@@ -125,14 +125,14 @@ function startCallTimeTracking() {
 }
 
 function updateCallDuration() {
-  console.log('callStartTime', callStartTime)
+  // console.log('callStartTime', callStartTime)
   if (callStartTime) {
     const currentTime = new Date();
     elapsedSeconds = Math.round((currentTime - callStartTime) / 1000);
     callDurationTotal = elapsedSeconds;
-    console.log(`Call duration: ${elapsedSeconds} seconds`);
+    // console.log(`Call duration: ${elapsedSeconds} seconds`);
     // Update UI with the elapsedSeconds value
-    console.log('updating ui with elapsed time', getFormattedElapsedCallTime());
+    // console.log('updating ui with elapsed time', getFormattedElapsedCallTime());
     // console.log($('#call-elapsed-duration').text());
     $('#call-elapsed-duration').text(getFormattedElapsedCallTime());
   }
@@ -176,14 +176,9 @@ function attachListenerToBackToDialerButton() {
   });
 }
 
-// function attachListenerToIncomingCallButtons() {
-//   $('#button-accept-incoming').on('click', function () {
-//
-//   });
-//   $('#button-reject-incoming').on('click', function () {
-//
-//   })
-// }
+function displayDialer() {
+  $('#tabs').tabs("option", "active", 0);
+}
 
 function attachUiListeners() {
   // attachListenerToIncomingCallButtons();
