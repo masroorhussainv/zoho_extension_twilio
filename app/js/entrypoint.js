@@ -9,6 +9,24 @@ const BACKEND_URLS = {
   }
 }
 
+const createObservableVariable = (initialValue) => {
+  let value = initialValue;
+  const listeners = [];
+
+  return {
+    get: () => value,
+    set: (newValue) => {
+      if (value !== newValue) {
+        value = newValue;
+        listeners.forEach(listener => listener(value));
+      }
+    },
+    onChange: (listener) => {
+      listeners.push(listener);
+    }
+  };
+};
+
 const speakerDevices = document.getElementById("speaker-devices");
 const ringtoneDevices = document.getElementById("ringtone-devices");
 const outputVolumeBar = document.getElementById("output-volume");
@@ -25,7 +43,14 @@ const incomingCallDiv = document.getElementById("incoming-call");
 const $phoneNumberInput = $("#phone-number");
 let outgoingPhoneNumber = null;
 let incomingPhoneNumber = null;
+// let crmDialedPhoneNumber = null;
+
 const $incomingPhoneNumberEl = $("#incoming-number");
+const crmDialedPhoneNumber = createObservableVariable(null);
+
+crmDialedPhoneNumber.onChange((newValue) => {
+  console.log('The crmDialedPhoneNumber has changed to:', newValue);
+});
 
 let elapsedSeconds = 0;
 let callStartTime;
@@ -35,8 +60,6 @@ let callDurationTotal = 0;
 let isMicMuted = false; // Track the microphone mute state
 let activeConnection; // Store the active connection
 
-// dialerPreLoading()
-
 const incomingCallHangupButton = $("#button-hangup-incoming");
 const incomingCallAcceptButton = $('#button-accept-incoming')
 const incomingCallRejectButton = $("#button-reject-incoming");
@@ -45,10 +68,6 @@ function attachIFrameMessageListenerEvent() {
   // attach event to receive messages from CRM in the iFrame code
   window.addEventListener('message', function(event) {
     // Make sure to verify the origin for security reasons
-    // console.log(event.data); // Outputs: 'Hello from parent'
-    // let element = document.getElementById('phone-number');
-    // console.log(element)
-    // console.log($phoneNumberInput)
     $phoneNumberInput.val(event.data.Number)
   }, false);
 

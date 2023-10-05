@@ -23,3 +23,10 @@ function dialerLoaded() {
   $callButton.prop('disabled', false)
   $callButton.removeClass('disabled-cursor')
 }
+
+function setDialerPhoneNumber() {
+  let $phoneNumberField = $("#phone-number");
+  if(![null, undefined, ''].includes(crmDialedPhoneNumber.get())) {
+    $phoneNumberField.val(crmDialedPhoneNumber.get());
+  }
+}

@@ -42,10 +42,9 @@ function initializeWidget()
 
   ZOHO.embeddedApp.on("DialerActive",function(){
     console.log("Dialer Activated");
-    console.log('Stored window.current_dialer_phone_number: ', window.crm_dialed_phone_number);
-    let $phoneNumberField = $("#phone-number");
-    $phoneNumberField.val(window.crm_dialed_phone_number);
-    window.crm_dialed_phone_number = null;
+    console.log('Stored current_dialer_phone_number: ', crmDialedPhoneNumber.get());
+    setDialerPhoneNumber();
+    crmDialedPhoneNumber.set(null);
   });
 
   ZOHO.embeddedApp.on("Dial",function(data){
@@ -53,14 +52,24 @@ function initializeWidget()
     if(data.Number) {
       console.log('---------------');
       console.log('data.Number', data.Number);
-      let $phoneNumberField = $("#phone-number");
-      window.crm_dialed_phone_number = $phoneNumberField.val();
-      console.log($phoneNumberField);
-      $phoneNumberField.val(data.Number);
-      console.log($phoneNumberField.val());
-      console.log('---------------');
+      let number = data.Number;
+      if(!number.startsWith('+')) {
+        number = '+' + number;
+      }
+      crmDialedPhoneNumber.set(number);
+      setDialerPhoneNumber();
+      // let $phoneNumberField = crmDialedPhoneNumber.get();
+      // console.log(crmDialedPhoneNumber.get());
+      // $phoneNumberField.val(crmDialedPhoneNumber.get());
+      // console.log(crmDialedPhoneNumber.get());
+      // console.log('---------------');
     }
   })
+
+  // TODO: remove start
+  crmDialedPhoneNumber.set(0);
+  crmDialedPhoneNumber.set(1);
+  // TODO: remove end
 
   /*
    * initialize the widget.
