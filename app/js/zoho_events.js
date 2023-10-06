@@ -1,5 +1,10 @@
 function initializeWidget()
 {
+  ZOHO.embeddedApp.on("APP.SDK.INITIALIZED", function() {
+    console.log("Zoho Embedded SDK version 1.2 initialized");
+    // Any other code that should run after SDK initialization
+  });
+
   /*
    * Subscribe to the EmbeddedApp onPageLoad event before initializing the widget
    */
@@ -74,5 +79,9 @@ function initializeWidget()
   /*
    * initialize the widget.
    */
-  ZOHO.embeddedApp.init();
+  ZOHO.embeddedApp.init({
+    client_id: '1000.RUZQ7KB5YE04NKUWTECGNJ2NIRRA0L',
+    scope: 'ZohoCRM.modules.ALL,ZohoCRM.settings.ALL', // Adjust the scope as needed
+    version: '2.1' // Use the appropriate version
+  });
 }

@@ -77,8 +77,28 @@ function initialSetup() {
   attachIFrameMessageListenerEvent();
 }
 
+function initializeSDK() {
+  // from version 1.0.3, doesnt work in 1.2
+  ZohoEmbededAppSDK.init({
+    client_id: '1000.RUZQ7KB5YE04NKUWTECGNJ2NIRRA0L',
+    scope: 'ZohoCRM.modules.ALL,ZohoCRM.settings.ALL', // Adjust the scope as needed
+    version: '2.1' // Use the appropriate version
+  });
+
+  ZohoEmbededAppSDK.on("APP.SDK.INITIALIZED", function() {
+    console.log("SDK initialized");
+    // You can now make other SDK calls or update your UI
+  });
+
+  ZohoEmbededAppSDK.get('currentUserToken').then(function(response) {
+    const accessToken = response.data.userToken;
+    // Send accessToken to your server or use it for client-side API calls
+  });
+}
+
 $(document).ready(function () {
   $('#login-container button[type="submit"]').on('click', submitLoginForm);
   initialSetup();
   checkLoggedInState();
+  // initializeSDK();
 });
